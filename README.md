@@ -14,8 +14,8 @@ Under construction.
 
 ---
 ## Citation
-Inoue J. et al. 
-oeDNAmap: . in prep.osDNA map: 海洋メタバーコーディングデータから生物相を比較する web tool.   
+Inoue J. 
+oeDNAmap: 海洋メタバーコーディングデータから生物相を比較する web tool. . in prep.   
 
 ---
 ## Contact 
