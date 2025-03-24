@@ -5,7 +5,7 @@ Web Tool/Database for Metabarcodes in the Northwestern Pacific and Beyond
 ---
 
 ## Analysis site   
-[https://yurai.aori.u-tokyo.ac.jp/oeDNAmap/index_yurai.html](https://yurai.aori.u-tokyo.ac.jp/oeDNAmap/index_yurai.html)
+[https://yurai.aori.u-tokyo.ac.jp/oeDNAmap/index_yurai.html](https://yurai.aori.u-tokyo.ac.jp/oeDNAmap/index_yurai.html)   
 (from 24 Mar. 2025)   
 
 ---
