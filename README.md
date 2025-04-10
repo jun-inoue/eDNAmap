@@ -1,5 +1,5 @@
 # oeDNAmap
-Web Tool/Database for Metabarcodes in the Northwestern Pacific and Beyond
+A Web Tool/Database for Metabarcodes in the Northwestern Pacific and Beyond
 
 
 ---
@@ -16,7 +16,7 @@ Under construction.
 ---
 ## Citation
 Inoue J. 
-oeDNAmap: 海洋メタバーコーディングデータから生物相を比較する web tool. . in prep.   
+Ocean eDNA Map: A Metabarcoding Web Tool for Comparing Marine Biodiversity　with Special Reference to Teleost Fish. in prep.   
 
 ---
 ## Contact 
