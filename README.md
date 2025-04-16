@@ -10,7 +10,6 @@ A Web Tool/Database for Metabarcodes in the Northwestern Pacific and Beyond
 
 ---
 ## Instruction　　　
-Under construction.  
 [https://fish-evol.org/oeDNAmap_instruction/indexJPN.html](https://fish-evol.org/oeDNAmap_instruction/indexJPN.html)   
 
 ---
