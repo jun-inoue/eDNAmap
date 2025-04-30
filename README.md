@@ -17,7 +17,7 @@ A Web Tool/Database for Metabarcodes in the Northwestern Pacific and Beyond
 
 ---
 ## Installation　　　
-If users install oeDNAmap on your own web server, download Source code from [Releases](https://github.com/jun-inoue/oeDNAmap/releases/tag/v1.0.0) and set up the server as follows:
+If users install oeDNAmap on a web server, download Source code from [Releases](https://github.com/jun-inoue/oeDNAmap/releases/tag/v1.0.0) and set up the server as follows:
 - save downloaded html and cgi-bin directories in /var/www/.
 - install R and a package,[vegan](https://cran.r-project.org/web/packages/vegan/index.html).
 - intall Pandas, by "pip install pandas"
