@@ -18,10 +18,10 @@ A Web Tool/Database for Metabarcodes in the Northwestern Pacific and Beyond
 ---
 ## Installation　　　
 If users install oeDNAmap on a web server, download Source code from [Releases](https://github.com/jun-inoue/oeDNAmap/releases/tag/v1.0.0) and set up the server as follows:
-- save downloaded html and cgi-bin directories in /var/www/.
-- install R and a package,[vegan](https://cran.r-project.org/web/packages/vegan/index.html).
-- intall Pandas, by "pip install pandas"
-- save dowlonaded [Generic Mapping Tools](https://www.generic-mapping-tools.org) in the /cgi-bin/OEDNAMAPscripts100 directory.   
+- Save downloaded html and cgi-bin directories in /var/www/.
+- Install R and the package,[vegan](https://cran.r-project.org/web/packages/vegan/index.html).
+- Install Pandas by running the following command in a Python environment: pip install pandas.
+- Save the dowlonaded [Generic Mapping Tools](https://www.generic-mapping-tools.org) in the /cgi-bin/OEDNAMAPscripts100 directory.   
 
 Those scripts were confirmed to run on the Linux operating system with an Apache HTTP Server Server.   
 
