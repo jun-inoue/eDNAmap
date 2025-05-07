@@ -18,8 +18,8 @@ A Web Tool/Database for Metabarcodes in the Northwestern Pacific and Beyond
 [https://fish-evol.org/oeDNAmap_instruction/index.html](https://fish-evol.org/oeDNAmap_instruction/index.html)   
 
 ---
-## Installation　　　
-If users install oeDNAmap on a web server, download Source code from [Releases](https://github.com/jun-inoue/oeDNAmap/releases/tag/v1.0.0) and set up the server as follows:
+## Programming Code　　　
+The programming Code is available from [Releases](https://github.com/jun-inoue/oeDNAmap/releases/tag/v1.0.0).  A user can install oeDNAmap on a web server as follows:
 - Save downloaded html and cgi-bin directories in /var/www/.
 - Install R and the package,[vegan](https://cran.r-project.org/web/packages/vegan/index.html).
 - Install Pandas by running the following command in a Python environment: pip install pandas.
