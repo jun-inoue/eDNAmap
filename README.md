@@ -29,8 +29,8 @@ Those scripts were confirmed to run on the Linux operating system with an Apache
 
 ---
 ## Citation
-Inoue J. 
-Ocean eDNA Map: A Metabarcoding Web Tool for Comparing Marine Biodiversity　with Special Reference to Teleost Fish. in prep.   
+Inoue, J. et al.   
+Ocean eDNA Map: A Metabarcoding Web Tool for Comparing Marine Biodiversity, with Special Reference to Teleost Fish. Manuscript submitted for publication.   
 
 ---
 ## Contact 
