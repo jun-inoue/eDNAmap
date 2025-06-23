@@ -5,8 +5,13 @@ A Web Tool/Database for Metabarcodes in the Northwestern Pacific and Beyond
 ---
 
 ## Analysis site   
+CGI: Fast   
 [https://yurai.aori.u-tokyo.ac.jp/oeDNAmap](https://yurai.aori.u-tokyo.ac.jp/oeDNAmap)   
 (from 24 Mar. 2025)   
+
+Flask   
+[https://orthoscope.jp/oednamap](https://orthoscope.jp/oednamap)   
+(from 23 July 2025)   
 
 <!-- 
 [https://oedna.opensci.aori.u-tokyo.ac.jp/oeDNAmap/index044.html](https://oedna.opensci.aori.u-tokyo.ac.jp/oeDNAmap/index044.html)   
