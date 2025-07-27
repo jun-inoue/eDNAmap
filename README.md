@@ -1,4 +1,4 @@
-# Ocean eDNA map 1
+# Ocean eDNA map
 A Web Tool/Database for Metabarcodes in the Northwestern Pacific and Beyond
 
 
