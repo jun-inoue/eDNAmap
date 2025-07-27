@@ -1,0 +1,71 @@
+https://157.82.133.212/oednamap
+で web ツールを走らせると、
+Safari 開発者ツールのコンソールに、
+[Error] Failed to load resource: the server responded with a status of 504 (Gateway Time-out) (submit, line 0)
+と言うエラーが出ます。このエラーは、index 42.htmlにあるtype="checkbox" name="list_cruiseNames"を 7 つ程度以上選ぶと出てきますが、4 つぐらいまでだと、正常にウェブツールが終わります。
+なお、このエラーは、(venv) jinoue@rx1000:~/oednamap$ pytnon3 app.pyによってデバグ環境で動かしている際には、type="checkbox" name="list_cruiseNames"を 7 つ程度以上選んでも出てこないで、正常にウェブツールが結果を出します。
+
+
+###### 解決策
+
+# Nginx + uWSGI Timeout Settings for Python Web App Deployment
+
+## 🔧 Nginx Configuration (`/etc/nginx/sites-available/your_site`)
+
+```nginx
+location /your_app {
+    client_max_body_size 50M;
+    include uwsgi_params;
+    uwsgi_pass unix:/tmp/your_app.sock;
+
+    # uWSGI 用のタイムアウト設定（重要）
+    uwsgi_read_timeout 900;
+    uwsgi_send_timeout 900;
+}
+
+ポイント
+proxy_*_timeout は uwsgi_pass では無効。
+uwsgi_read_timeout と uwsgi_send_timeout を使う。
+
+# wsgi.in
+[uwsgi]
+module = app:app
+master = true
+processes = 4
+threads = 2
+
+socket = /tmp/your_app.sock
+chmod-socket = 660
+
+virtualenv = /path/to/venv
+chdir = /path/to/app
+
+harakiri = 900  # タイムアウト（秒）
+limit-post = 134217728  # POSTデータ最大サイズ（128MB）
+buffer-size = 10485760  # バッファサイズ（10MB）
+
+vacuum = true
+die-on-term = true
+
+
+
+### 
+ポイント
+harakiri は uWSGI 側のリクエストタイムアウト（秒）。
+limit-post や buffer-size も大きめに設定。
+
+よくあるトラブルと対策
+症状	原因	対策
+504 Gateway Time-out	nginx のタイムアウト設定不足	uwsgi_read_timeout を追加
+
+処理が途中で止まる	uWSGI の harakiri に引っかかる	harakiri を延長
+
+ファイルアップロード失敗	client_max_body_size が小さい	nginx と uWSGI 両方でサイズを拡大
+
+JSON パースエラー	レスポンスが HTML などになっている	response.json() の前に response.ok を確認
+
+###
+✅ 設定変更後の反映手順
+sudo nginx -t
+sudo systemctl reload nginx
+sudo systemctl restart uwsgi  # または uwsgi --ini wsgi.ini

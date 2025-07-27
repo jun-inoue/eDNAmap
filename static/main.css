@@ -1,0 +1,54 @@
+body {}
+p {
+}
+td {}
+.honbun  {
+	font-size: 20px;
+	font-weight: normal;
+	line-height: 30px;
+	font-family: "ＭＳ Ｐ明朝", "MS PMincho", "ヒラギノ明朝 Pro W3", "Hiragino Mincho Pro", serif;
+}
+.honbunS  {
+	font-size: 15px;
+	font-weight: normal;
+	line-height: 22px;
+	font-family: "ＭＳ Ｐ明朝", "MS PMincho", "ヒラギノ明朝 Pro W3", "Hiragino Mincho Pro", serif;
+}
+
+
+h4 { font-size: 12px; font-weight: bold }
+h5 { font-size: 12px; line-height: 20px }
+element { }
+.honbun table tr td p .honbun {
+	font-family: Times New Roman, Times, serif;
+}
+.EnglishSmall {
+	font-family: "Times New Roman", Times, serif;
+	font-size: small;
+}
+.English {
+	font-family: "Times New Roman", Times, serif;
+	font-size: 16px;
+}
+.Commands {
+	font-family: "Courier New", Courier, monospace;
+	font-size: 14px; line-height: 20px;
+}
+.honbun table tr td .honbun .Commands .honbun strong {
+	font-family: ＭＳ ゴシック, MS Gothic, Osaka－等幅, Osaka-mono, monospace;
+}
+.titleL { font-size: 22px; font-family: 'Arial', 'Tahoma', sans-serif }
+.titleM { font-size: 18px; font-family: 'Arial', 'Tahoma', sans-serif }
+
+.loader-gif {
+    width: 200px;
+    height: auto;
+}
+
+.alert.alert-danger {
+  color: white;
+  background-color: red;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 5px;
+}

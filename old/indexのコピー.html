@@ -1,0 +1,1461 @@
+<!DOCTYPE html> 
+<html lang="ja">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <title>Ocean eDNA Map</title>
+  <style>
+        .bordered-input {
+            background-color: white; /* 背景色を白に設定 */
+            border: 1px solid #ccc; /* 薄い灰色の縁取りを追加 */
+            padding: 5px; /* パディングを追加して見やすく */
+        }
+
+        input::placeholder {
+            font-size: 14px; /* ここでフォントサイズを調整 */
+            color: lightgray; /* ここで色を調整 */
+        }
+
+    input[type="checkbox"] {
+        border: 2px solid #000; /* 黒い縁取り */
+        padding: 5px; /* チェックボックスの内側の余白 */
+        background-color: #f0f0f0; /* 背景色を薄いグレーに設定 */
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.5); /* 影を追加して見やすくする */
+        width: 15px; /* チェックボックスの幅を広げる */
+        height: 15px; /* チェックボックスの高さを広げる */
+    }
+
+    .Example-table td {
+      padding: 2px;
+      line-height: 1.2;
+    }
+
+    .ASV-table td {
+      padding: 2px;
+      line-height: 0.7;
+    }
+    
+  </style>
+  <link href="{{ url_for('static', filename='main.css') }}" rel="stylesheet" type="text/css">
+</head>
+ 
+<body bgcolor="#EEEEEE" leftmargin="20" marginheight="0" marginwidth="20" topmargin="20">
+
+<form id="my_form">
+<table align="center" width="850" border="0" cellpadding="0" cellspacing="5" bordercolor="#FFFFFF" bgcolor="white">
+
+
+
+    <tr>
+      <td width="100%">
+          <div align="center">
+              <table width="100%" border="0" cellspacing="2" cellpadding="0" bgcolor="#999999" height="50">
+                  <tr>
+                      <td align="center" valign="middle">
+                          <div align="center"><b><font color="#FFFFFF" size="5" face="Verdana, Arial, Helvetica, sans-serif">Ocean eDNA Map1</font></b></div>
+                      </td>
+                  </tr>
+              </table>
+          </div>
+      </td>
+    </tr>
+
+  <tr>
+    <td><table width="100%" border="0">
+        <tr>
+          <td width="15%" align="left"><a href="https://fish-evol.org/oeDNAmap_instruction" target="_blank">Instruction</a></td>
+          <td align="center" valign="bottom" class="English">A Web Tool/Database for Metabarcodes in the Northwestern Pacific and Beyond<input type="hidden" name="html_name" value="yurai_index"></td>
+          <td width="15%" align="right"><a href="https://github.com/jun-inoue/oeDNAmap/blob/main/README.md" target="_blank">GitHub</a></td>
+        </tr>
+    </table></td>
+  </tr>
+
+  <tr>
+     <td style="height: 10px; line-height: 10px; padding: 0;">&nbsp;</td>
+  </tr>
+
+  <tr><td><table width="100%" border="0" cellspacing="0">
+
+    <tr>
+        <td colspan="2"><button type="submit" class="btn-primary" style="WIDTH: 100%; HEIGHT: 30px; color: black; font-size: 18px; ">SUBMIT</button></td>
+    </tr>
+
+  <tr>
+     <td style="height: 10px; line-height: 10px; padding: 0;">&nbsp;</td>
+  </tr>
+
+    <tr>
+        <td width="45%" valign="top"><strong class="titleL">Status&nbsp;&nbsp;&nbsp;&nbsp;</strong></td>
+        <td width="55%" colspan="2" align="left"><div id="result-area">Ready.</div></td>
+    </tr>
+
+    <tr>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+
+    <tr>
+      <td>
+          Search species 
+      </td>
+      <td align="left" valign="top">
+                <select name="speciesName_pulldown" style="WIDTH: 100%; HEIGHT: 30px; color: black; font-size: 18px; ">
+                  <option disabled>### Teleosts ##################</option>
+                  <option value="Abudefduf-notatus">Abudefduf notatus &lpar;Yellowtail-sergeant&rpar; </option>
+                  <option value="Abudefduf-septemfasciatus">Abudefduf septemfasciatus &lpar;Banded-sergeant&rpar; </option>
+                  <option value="Abudefduf-sexfasciatus">Abudefduf sexfasciatus &lpar;Scissortail-sergeant&rpar; </option>
+                  <option value="Abudefduf-sordidus">Abudefduf sordidus &lpar;Blackspot-sergeant&rpar; </option>
+                  <option value="Abudefduf-vaigiensis">Abudefduf vaigiensis &lpar;Indo-Pacific-sergeant&rpar; </option>
+                  <option value="Acanthaphritis-barbata">Acanthaphritis barbata &lpar;Barbel-duckbill&rpar; </option>
+                  <option value="Acanthocybium-solandri">Acanthocybium solandri &lpar;Wahoo&rpar; </option>
+                  <option value="Acanthogobius-flavimanus">Acanthogobius flavimanus &lpar;Yellowfin-goby&rpar; </option>
+                  <option value="Acanthopagrus-schlegelii">Acanthopagrus schlegelii &lpar;Blackhead-seabream&rpar; </option>
+                  <option value="Acanthopagrus-sivicolus">Acanthopagrus sivicolus &lpar;Okinawa-seabream&rpar; </option>
+                  <option value="Acanthurus-achilles">Acanthurus achilles &lpar;Achilles-tang&rpar; </option>
+                  <option value="Acanthurus-blochii">Acanthurus blochii &lpar;Ringtail-surgeonfish&rpar; </option>
+                  <option value="Acanthurus-guttatus">Acanthurus guttatus &lpar;Whitespotted-surgeonfish&rpar; </option>
+                  <option value="Acanthurus-japonicus">Acanthurus japonicus &lpar;Japan-surgeonfish&rpar; </option>
+                  <option value="Acanthurus-lineatus">Acanthurus lineatus &lpar;Lined-surgeonfish&rpar; </option>
+                  <option value="Acanthurus-mata">Acanthurus mata &lpar;Elongate-surgeonfish&rpar; </option>
+                  <option value="Acanthurus-nigricans">Acanthurus nigricans &lpar;Whitecheek-surgeonfish&rpar; </option>
+                  <option value="Acanthurus-nigricauda">Acanthurus nigricauda &lpar;Epaulette-surgeonfish&rpar; </option>
+                  <option value="Acanthurus-nigrofuscus">Acanthurus nigrofuscus &lpar;Brown-surgeonfish&rpar; </option>
+                  <option value="Acanthurus-olivaceus">Acanthurus olivaceus &lpar;Orangespot-surgeonfish&rpar; </option>
+                  <option value="Acanthurus-thompsoni">Acanthurus thompsoni &lpar;Thompson's-surgeonfish&rpar; </option>
+                  <option value="Acanthurus-triostegus">Acanthurus triostegus &lpar;Convict-surgeonfish&rpar; </option>
+                  <option value="Acanthurus-xanthopterus">Acanthurus xanthopterus &lpar;Yellowfin-surgeonfish&rpar; </option>
+                  <option value="Acentrogobius-virgatulus">Acentrogobius virgatulus &lpar;New-species&rpar; </option>
+                  <option value="Acropoma-japonicum">Acropoma japonicum &lpar;Glowbelly&rpar; </option>
+                  <option value="Aethaloperca-rogaa">Aethaloperca rogaa &lpar;Redmouth-grouper&rpar; </option>
+                  <option value="Albula-glossodonta">Albula glossodonta &lpar;Roundjaw-bonefish&rpar; </option>
+                  <option value="Alectis-ciliaris">Alectis ciliaris &lpar;African-pompano&rpar; </option>
+                  <option value="Alopias-superciliosus">Alopias superciliosus &lpar;Bigeye-thresher&rpar; </option>
+                  <option value="Alopias-vulpinus">Alopias vulpinus &lpar;Thresher&rpar; </option>
+                  <option value="Aluterus-monoceros">Aluterus monoceros &lpar;Unicorn-leatherjacket-filefish&rpar; </option>
+                  <option value="Aluterus-scriptus">Aluterus scriptus &lpar;Scribbled-leatherjacket-filefish&rpar; </option>
+                  <option value="Amblyglyphidodon-aureus">Amblyglyphidodon aureus &lpar;Golden-damselfish&rpar; </option>
+                  <option value="Amblygobius-phalaena">Amblygobius phalaena &lpar;Whitebarred-goby&rpar; </option>
+                  <option value="Ammodytes-hexapterus">Ammodytes hexapterus &lpar;Pacific-sand-lance&rpar; </option>
+                  <option value="Amphiprion-clarkii">Amphiprion clarkii &lpar;Yellowtail-clownfish&rpar; </option>
+                  <option value="Anguilla-japonica">Anguilla japonica &lpar;Japanese-eel&rpar; </option>
+                  <option value="Antennarius-striatus">Antennarius striatus &lpar;Striated-frogfish&rpar; </option>
+                  <option value="Apistus-carinatus">Apistus carinatus &lpar;Ocellated-waspfish&rpar; </option>
+                  <option value="Apogonichthyoides-timorensis">Apogonichthyoides timorensis &lpar;Timor-cardinalfish&rpar; </option>
+                  <option value="Apolemichthys-trimaculatus">Apolemichthys trimaculatus &lpar;Threespot-angelfish&rpar; </option>
+                  <option value="Argentina-kagoshimae">Argentina kagoshimae &lpar;Smallmouth-argentine&rpar; </option>
+                  <option value="Arothron-firmamentum">Arothron firmamentum &lpar;Starry-toado&rpar; </option>
+                  <option value="Arothron-hispidus">Arothron hispidus &lpar;White-spotted-puffer&rpar; </option>
+                  <option value="Arothron-manilensis">Arothron manilensis &lpar;Narrow-lined-puffer&rpar; </option>
+                  <option value="Arothron-mappa">Arothron mappa &lpar;Map-puffer&rpar; </option>
+                  <option value="Arothron-nigropunctatus">Arothron nigropunctatus &lpar;Blackspotted-puffer&rpar; </option>
+                  <option value="Aspasma-minima">Aspasma minima &lpar;Clingfish&rpar; </option>
+                  <option value="Asterropteryx-ensifera">Asterropteryx ensifera &lpar;Miller's-damsel&rpar; </option>
+                  <option value="Asterropteryx-semipunctata">Asterropteryx semipunctata &lpar;Starry-goby&rpar; </option>
+                  <option value="Atherinomorus-lacunosus">Atherinomorus lacunosus &lpar;Wide-banded-hardyhead-silverside&rpar; </option>
+                  <option value="Atherion-elymus">Atherion elymus &lpar;Bearded-silverside&rpar; </option>
+                  <option value="Atrosalarias-fuscus-holomelas">Atrosalarias fuscus-holomelas &lpar;Brown-coral-blenny&rpar; </option>
+                  <option value="Atule-mate">Atule mate &lpar;Yellowtail-scad&rpar; </option>
+                  <option value="Aulotrachichthys-prosthemius">Aulotrachichthys prosthemius &lpar;West-Pacific-luminous-roughy&rpar; </option>
+                  <option value="Balaenoptera-physalus">Balaenoptera physalus &lpar;Fin-whale&rpar; </option>
+                  <option value="Balistapus-undulatus">Balistapus undulatus &lpar;Orange-lined-triggerfish&rpar; </option>
+                  <option value="Balistoides-conspicillum">Balistoides conspicillum &lpar;Clown-triggerfish&rpar; </option>
+                  <option value="Balistoides-viridescens">Balistoides viridescens &lpar;Titan-triggerfish&rpar; </option>
+                  <option value="Barbatula-toni">Barbatula toni &lpar;Siberian-stone-loach&rpar; </option>
+                  <option value="Bathygobius-coalitus">Bathygobius coalitus &lpar;Whitespotted-frillgoby&rpar; </option>
+                  <option value="Bathygobius-cocosensis">Bathygobius cocosensis &lpar;Cocos-frill-goby&rpar; </option>
+                  <option value="Bathygobius-fuscus">Bathygobius fuscus &lpar;Dusky-frillgoby&rpar; </option>
+                  <option value="Bathylagus-pacificus">Bathylagus pacificus &lpar;Slender-blacksmelt&rpar; </option>
+                  <option value="Benthodesmus-tenuis">Benthodesmus tenuis &lpar;Slender-frostfish&rpar; </option>
+                  <option value="Benthosema-fibulatum">Benthosema fibulatum &lpar;Spinycheek-lanternfish&rpar; </option>
+                  <option value="Benthosema-pterotum">Benthosema pterotum &lpar;Skinnycheek-lanternfish&rpar; </option>
+                  <option value="Berardius-bairdii">Berardius bairdii &lpar;Baird's-beaked-whale&rpar; </option>
+                  <option value="Beryx-splendens">Beryx splendens &lpar;Splendid-alfonsino&rpar; </option>
+                  <option value="Blenniella-bilitonensis">Blenniella bilitonensis &lpar;Biliton-blenniella&rpar; </option>
+                  <option value="Blenniella-chrysospilos">Blenniella chrysospilos &lpar;Red-spotted-blenny&rpar; </option>
+                  <option value="Blenniella-periophthalmus">Blenniella periophthalmus &lpar;Blue-dashed-rockskipper&rpar; </option>
+                  <option value="Bolinichthys-indicus">Bolinichthys indicus &lpar;Lanternfish&rpar; </option>
+                  <option value="Boreogadus-saida">Boreogadus saida &lpar;Polar-cod&rpar; </option>
+                  <option value="Bothus-mancus">Bothus mancus &lpar;Flowery-flounder&rpar; </option>
+                  <option value="Bothus-pantherinus">Bothus pantherinus &lpar;Leopard-flounder&rpar; </option>
+                  <option value="Brama-japonica">Brama japonica &lpar;Pacific-pomfret&rpar; </option>
+                  <option value="Brama-orcini">Brama orcini &lpar;Bigtooth-pomfret&rpar; </option>
+                  <option value="Brotula-multibarbata">Brotula multibarbata &lpar;Goatsbeard-brotula&rpar; </option>
+                  <option value="Caesio-caerulaurea">Caesio caerulaurea &lpar;Blue-and-gold-fusilier&rpar; </option>
+                  <option value="Caesio-cuning">Caesio cuning &lpar;Redbelly-yellowtail-fusilier&rpar; </option>
+                  <option value="Caesio-teres">Caesio teres &lpar;Yellow-and-blueback-fusilier&rpar; </option>
+                  <option value="Callogobius-okinawae">Callogobius okinawae &lpar;Okinawa-flap-headed-goby&rpar; </option>
+                  <option value="Callogobius-sclateri">Callogobius sclateri &lpar;Pacific-goby&rpar; </option>
+                  <option value="Calotomus-carolinus">Calotomus carolinus &lpar;Carolines-parrotfish&rpar; </option>
+                  <option value="Calotomus-japonicus">Calotomus japonicus &lpar;Japanese-parrotfish&rpar; </option>
+                  <option value="Calotomus-spinidens">Calotomus spinidens &lpar;Spinytooth-parrotfish&rpar; </option>
+                  <option value="Cantherhines-dumerilii">Cantherhines dumerilii &lpar;Whitespotted-filefish&rpar; </option>
+                  <option value="Cantherhines-pardalis">Cantherhines pardalis &lpar;Honeycomb-filefish&rpar; </option>
+                  <option value="Canthidermis-maculata">Canthidermis maculata &lpar;Rough-triggerfish&rpar; </option>
+                  <option value="Canthigaster-rivulata">Canthigaster rivulata &lpar;Brown-lined-puffer&rpar; </option>
+                  <option value="Canthigaster-valentini">Canthigaster valentini &lpar;Valentin's-sharpnose-puffer&rpar; </option>
+                  <option value="Caprodon-schlegelii">Caprodon schlegelii &lpar;Sunrise-perch&rpar; </option>
+                  <option value="Carangoides-ferdau">Carangoides ferdau &lpar;Blue-trevally&rpar; </option>
+                  <option value="Caranx-ignobilis">Caranx ignobilis &lpar;Giant-trevally&rpar; </option>
+                  <option value="Caranx-melampygus">Caranx melampygus &lpar;Bluefin-trevally&rpar; </option>
+                  <option value="Carassius-auratus">Carassius auratus &lpar;Goldfish&rpar; </option>
+                  <option value="Carassius-auratus-langsdorfii">Carassius auratus-langsdorfii &lpar;Japanese-silver-crucian-carp&rpar; </option>
+                  <option value="Carassius-cuvieri">Carassius cuvieri &lpar;Japanese-white-crucian-carp&rpar; </option>
+                  <option value="Carcharodon-carcharias">Carcharodon carcharias &lpar;Great-white-shark&rpar; </option>
+                  <option value="Centropyge-ferrugata">Centropyge ferrugata &lpar;Rusty-angelfish&rpar; </option>
+                  <option value="Centropyge-heraldi">Centropyge heraldi &lpar;Yellow-angelfish&rpar; </option>
+                  <option value="Centroscymnus-owstoni">Centroscymnus owstoni &lpar;Roughskin-dogfish&rpar; </option>
+                  <option value="Cephalopholis-argus">Cephalopholis argus &lpar;Peacock-hind&rpar; </option>
+                  <option value="Cephalopholis-leopardus">Cephalopholis leopardus &lpar;Leopard-hind&rpar; </option>
+                  <option value="Cephalopholis-urodeta">Cephalopholis urodeta &lpar;Darkfin-hind&rpar; </option>
+                  <option value="Ceratoscopelus-townsendi">Ceratoscopelus townsendi &lpar;Dogtooth-lampfish&rpar; </option>
+                  <option value="Ceratoscopelus-warmingii">Ceratoscopelus warmingii &lpar;Warming's-lantern-fish&rpar; </option>
+                  <option value="Cercamia-eremia">Cercamia eremia &lpar;Glassy-cardinalfish&rpar; </option>
+                  <option value="Chaenogobius-annularis">Chaenogobius annularis &lpar;Forktongue-goby&rpar; </option>
+                  <option value="Chaetodon-adiergastos">Chaetodon adiergastos &lpar;Philippine-butterflyfish&rpar; </option>
+                  <option value="Chaetodon-argentatus">Chaetodon argentatus &lpar;Asian-butterflyfish&rpar; </option>
+                  <option value="Chaetodon-auriga">Chaetodon auriga &lpar;Threadfin-butterflyfish&rpar; </option>
+                  <option value="Chaetodon-auripes">Chaetodon auripes &lpar;Oriental-butterflyfish&rpar; </option>
+                  <option value="Chaetodon-baronessa">Chaetodon baronessa &lpar;Eastern-triangular-butterflyfish&rpar; </option>
+                  <option value="Chaetodon-bennetti">Chaetodon bennetti &lpar;Bluelashed-butterflyfish&rpar; </option>
+                  <option value="Chaetodon-citrinellus">Chaetodon citrinellus &lpar;Speckled-butterflyfish&rpar; </option>
+                  <option value="Chaetodon-ephippium">Chaetodon ephippium &lpar;Saddle-butterflyfish&rpar; </option>
+                  <option value="Chaetodon-kleinii">Chaetodon kleinii &lpar;Sunburst-butterflyfish&rpar; </option>
+                  <option value="Chaetodon-lunula">Chaetodon lunula &lpar;Raccoon-butterflyfish&rpar; </option>
+                  <option value="Chaetodon-lunulatus">Chaetodon lunulatus &lpar;Oval-butterflyfish&rpar; </option>
+                  <option value="Chaetodon-melannotus">Chaetodon melannotus &lpar;Blackback-butterflyfish&rpar; </option>
+                  <option value="Chaetodon-plebeius">Chaetodon plebeius &lpar;Blueblotch-butterflyfish&rpar; </option>
+                  <option value="Chaetodon-quadrimaculatus">Chaetodon quadrimaculatus &lpar;Fourspot-butterflyfish&rpar; </option>
+                  <option value="Chaetodon-rafflesii">Chaetodon rafflesii &lpar;Latticed-butterflyfish&rpar; </option>
+                  <option value="Chaetodon-selene">Chaetodon selene &lpar;Yellow-dotted-butterflyfish&rpar; </option>
+                  <option value="Chaetodon-semeion">Chaetodon semeion &lpar;Dotted-butterflyfish&rpar; </option>
+                  <option value="Chaetodon-trifascialis">Chaetodon trifascialis &lpar;Chevron-butterflyfish&rpar; </option>
+                  <option value="Chaetodon-trifasciatus">Chaetodon trifasciatus &lpar;Melon-butterflyfish&rpar; </option>
+                  <option value="Chaetodon-vagabundus">Chaetodon vagabundus &lpar;Vagabond-butterflyfish&rpar; </option>
+                  <option value="Channa-argus">Channa argus &lpar;Snakehead&rpar; </option>
+                  <option value="Chanos-chanos">Chanos chanos &lpar;Milkfish&rpar; </option>
+                  <option value="Chauliodus-macouni">Chauliodus macouni &lpar;Pacific-viperfish&rpar; </option>
+                  <option value="Cheilinus-trilobatus">Cheilinus trilobatus &lpar;Tripletail-wrasse&rpar; </option>
+                  <option value="Cheilodipterus-quinquelineatus">Cheilodipterus quinquelineatus &lpar;Five-lined-cardinalfish&rpar; </option>
+                  <option value="Cheilopogon-atrisignis">Cheilopogon atrisignis &lpar;Glider-flyingfish&rpar; </option>
+                  <option value="Cheiloprion-labiatus">Cheiloprion labiatus &lpar;Big-lip-damsel&rpar; </option>
+                  <option value="Chelidonichthys-spinosus">Chelidonichthys spinosus &lpar;Spiny-red-gurnard&rpar; </option>
+                  <option value="Chelidoperca-hirundinacea">Chelidoperca hirundinacea &lpar;Red-blotch-perchlet&rpar; </option>
+                  <option value="Chlorophthalmus-nigromarginatus">Chlorophthalmus nigromarginatus &lpar;Blackedge-greeneye&rpar; </option>
+                  <option value="Chlorurus-frontalis">Chlorurus frontalis &lpar;Pacific-slopehead-parrotfish&rpar; </option>
+                  <option value="Chlorurus-microrhinos">Chlorurus microrhinos &lpar;Steephead-parrots&rpar; </option>
+                  <option value="Chlorurus-sordidus">Chlorurus sordidus &lpar;NONE&rpar; </option>
+                  <option value="Chromis-amboinensis">Chromis amboinensis &lpar;Ambon-chromis&rpar; </option>
+                  <option value="Chromis-atripectoralis">Chromis atripectoralis &lpar;Black-axil-chromis&rpar; </option>
+                  <option value="Chromis-margaritifer">Chromis margaritifer &lpar;Bicolor-chromis&rpar; </option>
+                  <option value="Chromis-vanderbilti">Chromis vanderbilti &lpar;Vanderbilt's-chromis&rpar; </option>
+                  <option value="Chromis-weberi">Chromis weberi &lpar;Weber's-chromis&rpar; </option>
+                  <option value="Chrysiptera-biocellata">Chrysiptera biocellata &lpar;Twinspot-damselfish&rpar; </option>
+                  <option value="Chrysiptera-brownriggii">Chrysiptera brownriggii &lpar;Surge-damselfish&rpar; </option>
+                  <option value="Chrysiptera-cyanea">Chrysiptera cyanea &lpar;Sapphire-devil&rpar; </option>
+                  <option value="Chrysiptera-glauca">Chrysiptera glauca &lpar;Grey-demoiselle&rpar; </option>
+                  <option value="Chrysiptera-rex">Chrysiptera rex &lpar;King-demoiselle&rpar; </option>
+                  <option value="Chrysiptera-unimaculata">Chrysiptera unimaculata &lpar;Onespot-demoiselle&rpar; </option>
+                  <option value="Cirrhilabrus-exquisitus">Cirrhilabrus exquisitus &lpar;Exquisite-wrasse&rpar; </option>
+                  <option value="Cirrhitichthys-oxycephalus">Cirrhitichthys oxycephalus &lpar;Coral-hawkfish&rpar; </option>
+                  <option value="Cirrhitus-pinnulatus">Cirrhitus pinnulatus &lpar;Stocky-hawkfish&rpar; </option>
+                  <option value="Cirripectes-castaneus">Cirripectes castaneus &lpar;Chestnut-eyelash-blenny&rpar; </option>
+                  <option value="Cirripectes-filamentosus">Cirripectes filamentosus &lpar;Filamentous-blenny&rpar; </option>
+                  <option value="Cirripectes-imitator">Cirripectes imitator &lpar;Imitator-blenny&rpar; </option>
+                  <option value="Cirripectes-polyzona">Cirripectes polyzona &lpar;Barred-blenny&rpar; </option>
+                  <option value="Cirripectes-stigmaticus">Cirripectes stigmaticus &lpar;Red-streaked-blenny&rpar; </option>
+                  <option value="Cirripectes-variolosus">Cirripectes variolosus &lpar;Red-speckled-blenny&rpar; </option>
+                  <option value="Clupea-pallasii">Clupea pallasii &lpar;Pacific-herring&rpar; </option>
+                  <option value="Coelorinchus-multispinulosus">Coelorinchus multispinulosus &lpar;Spearnose-grenadier&rpar; </option>
+                  <option value="Cololabis-saira">Cololabis saira &lpar;Pacific-saury&rpar; </option>
+                  <option value="Conger-myriaster">Conger myriaster &lpar;Whitespotted-conger&rpar; </option>
+                  <option value="Coris-aygula">Coris aygula &lpar;Clown-coris&rpar; </option>
+                  <option value="Coryphaena-hippurus">Coryphaena hippurus &lpar;Common-dolphinfish&rpar; </option>
+                  <option value="Coryphaenoides-acrolepis">Coryphaenoides acrolepis &lpar;Pacific-grenadier&rpar; </option>
+                  <option value="Corythoichthys-haematopterus">Corythoichthys haematopterus &lpar;Messmate-pipefish&rpar; </option>
+                  <option value="Cottus-pollux">Cottus pollux &lpar;Japanese-fluvial-sculpin&rpar; </option>
+                  <option value="Crenimugil-crenilabis">Crenimugil crenilabis &lpar;Fringelip-mullet&rpar; </option>
+                  <option value="Crossosalarias-macrospilus">Crossosalarias macrospilus &lpar;Tripplespot-blenny&rpar; </option>
+                  <option value="Cryptocentrus-caeruleomaculatus">Cryptocentrus caeruleomaculatus &lpar;Blue-speckled-prawn-goby&rpar; </option>
+                  <option value="Ctenochaetus-binotatus">Ctenochaetus binotatus &lpar;Twospot-surgeonfish&rpar; </option>
+                  <option value="Ctenochaetus-striatus">Ctenochaetus striatus &lpar;Striated-surgeonfish&rpar; </option>
+                  <option value="Ctenogobiops-feroculus">Ctenogobiops feroculus &lpar;Sandy-prawn-goby&rpar; </option>
+                  <option value="Cubiceps-squamiceps">Cubiceps squamiceps &lpar;Shadow-driftfish&rpar; </option>
+                  <option value="Cyclopterus-lumpus">Cyclopterus lumpus &lpar;Lumpfish&rpar; </option>
+                  <option value="Cyclothone-alba">Cyclothone alba &lpar;Bristlemouth&rpar; </option>
+                  <option value="Cyclothone-atraria">Cyclothone atraria &lpar;Deep-water-bristlemouth&rpar; </option>
+                  <option value="Cyclothone-pseudopallida">Cyclothone pseudopallida &lpar;Slender-bristlemouth&rpar; </option>
+                  <option value="Cymolutes-torquatus">Cymolutes torquatus &lpar;Finescale-razorfish&rpar; </option>
+                  <option value="Cynoglossus-itinus">Cynoglossus itinus &lpar;Speckled-tongue-sole&rpar; </option>
+                  <option value="Dascyllus-aruanus">Dascyllus aruanus &lpar;Whitetail-dascyllus&rpar; </option>
+                  <option value="Dascyllus-reticulatus">Dascyllus reticulatus &lpar;Reticulate-dascyllus&rpar; </option>
+                  <option value="Dasyatis-matsubarai">Dasyatis matsubarai &lpar;Short-tail-stingray&rpar; </option>
+                  <option value="Deania-calcea">Deania calcea &lpar;Birdbeak-dogfish&rpar; </option>
+                  <option value="Decapterus-macarellus">Decapterus macarellus &lpar;Mackerel-scad&rpar; </option>
+                  <option value="Decapterus-tabl">Decapterus tabl &lpar;Roughear-scad&rpar; </option>
+                  <option value="Diaphus-anderseni">Diaphus anderseni &lpar;Andersen's-lantern-fish&rpar; </option>
+                  <option value="Diaphus-brachycephalus">Diaphus brachycephalus &lpar;Short-headed-lantern-fish&rpar; </option>
+                  <option value="Diaphus-chrysorhynchus">Diaphus chrysorhynchus &lpar;Golden-nosed-lantern-fish&rpar; </option>
+                  <option value="Diaphus-garmani">Diaphus garmani &lpar;Garman's-lanternfish&rpar; </option>
+                  <option value="Diaphus-jenseni">Diaphus jenseni &lpar;Jensen's-lanternfish&rpar; </option>
+                  <option value="Diaphus-luetkeni">Diaphus luetkeni &lpar;Luetken's-lanternfish&rpar; </option>
+                  <option value="Diaphus-parri">Diaphus parri &lpar;Parr's-lanternfish&rpar; </option>
+                  <option value="Diaphus-perspicillatus">Diaphus perspicillatus &lpar;Transparent-lantern-fish&rpar; </option>
+                  <option value="Diaphus-phillipsi">Diaphus phillipsi &lpar;Bolin's-lantern-fish&rpar; </option>
+                  <option value="Diaphus-regani">Diaphus regani &lpar;Regan's-lanternfish&rpar; </option>
+                  <option value="Diaphus-splendidus">Diaphus splendidus &lpar;Horned-lanternfish&rpar; </option>
+                  <option value="Diaphus-theta">Diaphus theta &lpar;California-headlightfish&rpar; </option>
+                  <option value="Diaphus-watasei">Diaphus watasei &lpar;Watases-lanternfish&rpar; </option>
+                  <option value="Dicentrarchus-labrax">Dicentrarchus labrax &lpar;European-seabass&rpar; </option>
+                  <option value="Diodon-holocanthus">Diodon holocanthus &lpar;Longspined-porcupinefish&rpar; </option>
+                  <option value="Diodon-liturosus">Diodon liturosus &lpar;Black-blotched-porcupinefish&rpar; </option>
+                  <option value="Diogenichthys-atlanticus">Diogenichthys atlanticus &lpar;Longfin-lanternfish&rpar; </option>
+                  <option value="Diplogrammus-xenicus">Diplogrammus xenicus &lpar;Japanese-fold-dragonet&rpar; </option>
+                  <option value="Diplospinus-multistriatus">Diplospinus multistriatus &lpar;Striped-escolar&rpar; </option>
+                  <option value="Dipterygonotus-balteatus">Dipterygonotus balteatus &lpar;Mottled-fusilier&rpar; </option>
+                  <option value="Diretmichthys-parini">Diretmichthys parini &lpar;Parin's-spinyfish&rpar; </option>
+                  <option value="Dischistodus-melanotus">Dischistodus melanotus &lpar;Black-vent-damsel&rpar; </option>
+                  <option value="Dussumieria-elopsoides">Dussumieria elopsoides &lpar;Slender-rainbow-sardine&rpar; </option>
+                  <option value="Echelus-uropterus">Echelus uropterus &lpar;Finned-worm-eel&rpar; </option>
+                  <option value="Echeneis-naucrates">Echeneis naucrates &lpar;Live-sharksucker&rpar; </option>
+                  <option value="Echidna-nebulosa">Echidna nebulosa &lpar;Starry-moray&rpar; </option>
+                  <option value="Echidna-polyzona">Echidna polyzona &lpar;Barred-moray&rpar; </option>
+                  <option value="Ecsenius-bicolor">Ecsenius bicolor &lpar;Bicolor-blenny&rpar; </option>
+                  <option value="Ecsenius-oculus">Ecsenius oculus &lpar;Ocular-blenny&rpar; </option>
+                  <option value="Ecsenius-yaeyamaensis">Ecsenius yaeyamaensis &lpar;Yaeyama-blenny&rpar; </option>
+                  <option value="Elagatis-bipinnulata">Elagatis bipinnulata &lpar;Rainbow-runner&rpar; </option>
+                  <option value="Eleginus-gracilis">Eleginus gracilis &lpar;Saffron-cod&rpar; </option>
+                  <option value="Ellochelon-vaigiensis">Ellochelon vaigiensis &lpar;Squaretail-mullet&rpar; </option>
+                  <option value="Emmelichthys-karnellai">Emmelichthys karnellai &lpar;Karnella's-rover&rpar; </option>
+                  <option value="Enchelycore-bayeri">Enchelycore bayeri &lpar;Bayer's-moray&rpar; </option>
+                  <option value="Enchelycore-pardalis">Enchelycore pardalis &lpar;Leopard-moray-eel&rpar; </option>
+                  <option value="Encrasicholina-punctifer">Encrasicholina punctifer &lpar;Buccaneer-anchovy&rpar; </option>
+                  <option value="Engraulis-japonicus">Engraulis japonicus &lpar;Japanese-anchovy&rpar; </option>
+                  <option value="Enneapterygius-fuscoventer">Enneapterygius fuscoventer &lpar;Blackbelly-triplefin&rpar; </option>
+                  <option value="Enneapterygius-philippinus">Enneapterygius philippinus &lpar;Minute-triplefin&rpar; </option>
+                  <option value="Enneapterygius-phoenicosoma">Enneapterygius phoenicosoma &lpar;Red-bodied-triplefin&rpar; </option>
+                  <option value="Enneapterygius-similis">Enneapterygius similis &lpar;Black-and-Red-Triplefin&rpar; </option>
+                  <option value="Enneapterygius-unimaculatus">Enneapterygius unimaculatus &lpar;Onespot-triplefin&rpar; </option>
+                  <option value="Entomacrodus-caudofasciatus">Entomacrodus caudofasciatus &lpar;Tail-barred-rockskipper&rpar; </option>
+                  <option value="Entomacrodus-decussatus">Entomacrodus decussatus &lpar;Wavy-lined-blenny&rpar; </option>
+                  <option value="Entomacrodus-stellifer">Entomacrodus stellifer &lpar;Stellar-rockskipper&rpar; </option>
+                  <option value="Entomacrodus-stellifer-stellifer">Entomacrodus stellifer-stellifer &lpar;Stellar-rockskipper&rpar; </option>
+                  <option value="Entomacrodus-striatus">Entomacrodus striatus &lpar;Reef-margin-blenny&rpar; </option>
+                  <option value="Epinephelus-akaara">Epinephelus akaara &lpar;Hong-Kong-grouper&rpar; </option>
+                  <option value="Epinephelus-areolatus">Epinephelus areolatus &lpar;Areolate-grouper&rpar; </option>
+                  <option value="Epinephelus-bontoides">Epinephelus bontoides &lpar;Palemargin-grouper&rpar; </option>
+                  <option value="Epinephelus-coioides">Epinephelus coioides &lpar;Orange-spotted-grouper&rpar; </option>
+                  <option value="Epinephelus-fasciatus">Epinephelus fasciatus &lpar;Blacktip-grouper&rpar; </option>
+                  <option value="Epinephelus-hexagonatus">Epinephelus hexagonatus &lpar;Starspotted-grouper&rpar; </option>
+                  <option value="Epinephelus-melanostigma">Epinephelus melanostigma &lpar;One-blotch-grouper&rpar; </option>
+                  <option value="Epinephelus-merra">Epinephelus merra &lpar;Honeycomb-grouper&rpar; </option>
+                  <option value="Epinephelus-moara">Epinephelus moara &lpar;Longtooth-grouper&rpar; </option>
+                  <option value="Epinephelus-tauvina">Epinephelus tauvina &lpar;Greasy-grouper&rpar; </option>
+                  <option value="Erythrocles-schlegelii">Erythrocles schlegelii &lpar;Japanese-rubyfish&rpar; </option>
+                  <option value="Eschrichtius-robustus">Eschrichtius robustus &lpar;Grey-whale&rpar; </option>
+                  <option value="Etrumeus-teres">Etrumeus teres &lpar;Red-eye-round-herring&rpar; </option>
+                  <option value="Eumetopias-jubatus">Eumetopias jubatus &lpar;Steller-sea-lion&rpar; </option>
+                  <option value="Eurypleuron-owasianum">Eurypleuron owasianum &lpar;Eel-pearlfish&rpar; </option>
+                  <option value="Eviota-abax">Eviota abax &lpar;Sand-table-dwarfgoby&rpar; </option>
+                  <option value="Eviota-distigma">Eviota distigma &lpar;Twospot-dwarfgoby&rpar; </option>
+                  <option value="Eviota-fasciola">Eviota fasciola &lpar;Barred-dwarfgoby&rpar; </option>
+                  <option value="Eviota-guttata">Eviota guttata &lpar;Spotted-dwarfgoby&rpar; </option>
+                  <option value="Eviota-punctulata">Eviota punctulata &lpar;Dotted-dwarfgoby&rpar; </option>
+                  <option value="Eviota-smaragdus">Eviota smaragdus &lpar;Emerald-dwarfgoby&rpar; </option>
+                  <option value="Eviota-storthynx">Eviota storthynx &lpar;Storthynx-dwarfgoby&rpar; </option>
+                  <option value="Exallias-brevis">Exallias brevis &lpar;Leopard-blenny&rpar; </option>
+                  <option value="Exocoetus-volitans">Exocoetus volitans &lpar;Tropical-two-wing-flyingfish&rpar; </option>
+                  <option value="Favonigobius-gymnauchen">Favonigobius gymnauchen &lpar;Sharp-nosed-sand-goby&rpar; </option>
+                  <option value="Favonigobius-reichei">Favonigobius reichei &lpar;Indo-Pacific-tropical-sand-goby&rpar; </option>
+                  <option value="Fistularia-commersonii">Fistularia commersonii &lpar;Bluespotted-cornetfish&rpar; </option>
+                  <option value="Fistularia-petimba">Fistularia petimba &lpar;Red-cornetfish&rpar; </option>
+                  <option value="Forcipiger-flavissimus">Forcipiger flavissimus &lpar;Longnose-butterfly-fish&rpar; </option>
+                  <option value="Fowleria-marmorata">Fowleria marmorata &lpar;Marbled-cardinalfish&rpar; </option>
+                  <option value="Gadus-chalcogrammus">Gadus chalcogrammus &lpar;Alaska-pollock&rpar; </option>
+                  <option value="Gadus-morhua">Gadus morhua &lpar;Atlantic-cod&rpar; </option>
+                  <option value="Gasterosteus-aculeatus">Gasterosteus aculeatus &lpar;Three-spined-stickleback&rpar; </option>
+                  <option value="Gempylus-serpens">Gempylus serpens &lpar;Snake-mackerel&rpar; </option>
+                  <option value="Girella-punctata">Girella punctata &lpar;Largescale-blackfish&rpar; </option>
+                  <option value="Glossanodon-semifasciatus">Glossanodon semifasciatus &lpar;Deep-sea-smelt&rpar; </option>
+                  <option value="Glossogobius-olivaceus">Glossogobius olivaceus &lpar;Urohaze-goby&rpar; </option>
+                  <option value="Gnathanodon-speciosus">Gnathanodon speciosus &lpar;Golden-trevally&rpar; </option>
+                  <option value="Gnatholepis-anjerensis">Gnatholepis anjerensis &lpar;Eye-bar-goby&rpar; </option>
+                  <option value="Gnatholepis-cauerensis">Gnatholepis cauerensis &lpar;Eyebar-goby&rpar; </option>
+                  <option value="Gnatholepis-cauerensis-cauerensis">Gnatholepis cauerensis-cauerensis &lpar;Eyebar-goby&rpar; </option>
+                  <option value="Gnatholepis-scapulostigma">Gnatholepis scapulostigma &lpar;Eyebar-goby&rpar; </option>
+                  <option value="Gobio-gobio">Gobio gobio &lpar;Gudgeon&rpar; </option>
+                  <option value="Gobius-niger">Gobius niger &lpar;Black-goby&rpar; </option>
+                  <option value="Gomphosus-varius">Gomphosus varius &lpar;Bird-wrasse&rpar; </option>
+                  <option value="Gonorynchus-abbreviatus">Gonorynchus abbreviatus &lpar;Bighead-beaked-sandfish&rpar; </option>
+                  <option value="Grammatonotus-surugaensis">Grammatonotus surugaensis &lpar;Double-lined-mackerel&rpar; </option>
+                  <option value="Grampus-griseus">Grampus griseus &lpar;Risso's-dolphin&rpar; </option>
+                  <option value="Gymnapogon-urospilotus">Gymnapogon urospilotus &lpar;B-spot-cardinalfish&rpar; </option>
+                  <option value="Gymnocanthus-tricuspis">Gymnocanthus tricuspis &lpar;Arctic-staghorn-sculpin&rpar; </option>
+                  <option value="Gymnocranius-griseus">Gymnocranius griseus &lpar;Grey-large-eye-bream&rpar; </option>
+                  <option value="Gymnomuraena-zebra">Gymnomuraena zebra &lpar;Zebra-moray&rpar; </option>
+                  <option value="Gymnothorax-buroensis">Gymnothorax buroensis &lpar;Vagrant-moray&rpar; </option>
+                  <option value="Gymnothorax-chilospilus">Gymnothorax chilospilus &lpar;Lipspot-moray&rpar; </option>
+                  <option value="Gymnothorax-enigmaticus">Gymnothorax enigmaticus &lpar;Enigmatic-moray&rpar; </option>
+                  <option value="Gymnothorax-fimbriatus">Gymnothorax fimbriatus &lpar;Fimbriated-moray&rpar; </option>
+                  <option value="Gymnothorax-flavimarginatus">Gymnothorax flavimarginatus &lpar;Yellow-edged-moray&rpar; </option>
+                  <option value="Gymnothorax-javanicus">Gymnothorax javanicus &lpar;Giant-moray&rpar; </option>
+                  <option value="Gymnothorax-kidako">Gymnothorax kidako &lpar;Kidako-moray&rpar; </option>
+                  <option value="Gymnothorax-melatremus">Gymnothorax melatremus &lpar;Dwarf-moray&rpar; </option>
+                  <option value="Gymnothorax-meleagris">Gymnothorax meleagris &lpar;Turkey-moray&rpar; </option>
+                  <option value="Gymnothorax-pictus">Gymnothorax pictus &lpar;Paintspotted-moray&rpar; </option>
+                  <option value="Gymnothorax-pindae">Gymnothorax pindae &lpar;Pinda-moray&rpar; </option>
+                  <option value="Gymnothorax-richardsonii">Gymnothorax richardsonii &lpar;Richardson's-moray&rpar; </option>
+                  <option value="Gymnothorax-thyrsoideus">Gymnothorax thyrsoideus &lpar;Greyface-moray&rpar; </option>
+                  <option value="Gymnothorax-undulatus">Gymnothorax undulatus &lpar;Undulated-moray&rpar; </option>
+                  <option value="Gymnothorax-zonipectis">Gymnothorax zonipectis &lpar;Barredfin-moray&rpar; </option>
+                  <option value="Halichoeres-hortulanus">Halichoeres hortulanus &lpar;Checkerboard-wrasse&rpar; </option>
+                  <option value="Halichoeres-margaritaceus">Halichoeres margaritaceus &lpar;Pink-belly-wrasse&rpar; </option>
+                  <option value="Halichoeres-marginatus">Halichoeres marginatus &lpar;Dusky-wrasse&rpar; </option>
+                  <option value="Halichoeres-melanurus">Halichoeres melanurus &lpar;Tail-spot-wrasse&rpar; </option>
+                  <option value="Halichoeres-nebulosus">Halichoeres nebulosus &lpar;Nebulous-wrasse&rpar; </option>
+                  <option value="Halichoeres-scapularis">Halichoeres scapularis &lpar;Zigzag-wrasse&rpar; </option>
+                  <option value="Halichoeres-tenuispinis">Halichoeres tenuispinis &lpar;Chinese-wrasse&rpar; </option>
+                  <option value="Halichoeres-trimaculatus">Halichoeres trimaculatus &lpar;Threespot-wrasse&rpar; </option>
+                  <option value="Hapalogenys-nigripinnis">Hapalogenys nigripinnis &lpar;Short-barbeled-velvetchin&rpar; </option>
+                  <option value="Hazeus-otakii">Hazeus otakii &lpar;Scalyhead-goby&rpar; </option>
+                  <option value="Helcogramma-fuscipectoris">Helcogramma fuscipectoris &lpar;Fourspot-triplefin&rpar; </option>
+                  <option value="Helcogramma-hudsoni">Helcogramma hudsoni &lpar;Hudson's-triplefin&rpar; </option>
+                  <option value="Hemibarbus-barbus">Hemibarbus barbus &lpar;Barbel-steed&rpar; </option>
+                  <option value="Hemigymnus-fasciatus">Hemigymnus fasciatus &lpar;Barred-thicklip&rpar; </option>
+                  <option value="Hemigymnus-melapterus">Hemigymnus melapterus &lpar;Blackeye-thicklip&rpar; </option>
+                  <option value="Heniochus-acuminatus">Heniochus acuminatus &lpar;Pennant-coralfish&rpar; </option>
+                  <option value="Herklotsichthys-quadrimaculatus">Herklotsichthys quadrimaculatus &lpar;Bluestripe-herring&rpar; </option>
+                  <option value="Heteromycteris-japonicus">Heteromycteris japonicus &lpar;Bamboo-sole&rpar; </option>
+                  <option value="Hippocampus-coronatus">Hippocampus coronatus &lpar;Crowned-seahorse&rpar; </option>
+                  <option value="Hipposcarus-harid">Hipposcarus harid &lpar;Candelamoa-parrotfish&rpar; </option>
+                  <option value="Hipposcarus-longiceps">Hipposcarus longiceps &lpar;Pacific-longnose-parrotfish&rpar; </option>
+                  <option value="Hirundichthys-speculiger">Hirundichthys speculiger &lpar;Mirrorwing-flyingfish&rpar; </option>
+                  <option value="Hoplolatilus-cuniculus">Hoplolatilus cuniculus &lpar;Dusky-tilefish&rpar; </option>
+                  <option value="Hoplolatilus-fronticinctus">Hoplolatilus fronticinctus &lpar;Pastel-tilefish&rpar; </option>
+                  <option value="Hoplosebastes-armatus">Hoplosebastes armatus &lpar;Flower-scorpionfish&rpar; </option>
+                  <option value="Hygophum-proximum">Hygophum proximum &lpar;Firefly-lanternfish&rpar; </option>
+                  <option value="Hygophum-reinhardtii">Hygophum reinhardtii &lpar;Reinhardt's-lantern-fish&rpar; </option>
+                  <option value="Hyperoglyphe-japonica">Hyperoglyphe japonica &lpar;Pacific-barrelfish&rpar; </option>
+                  <option value="Hypoatherina-panatela">Hypoatherina panatela &lpar;Panatella-silverside&rpar; </option>
+                  <option value="Hypoatherina-temminckii">Hypoatherina temminckii &lpar;Samoan-silverside&rpar; </option>
+                  <option value="Hypoatherina-tsurugae">Hypoatherina tsurugae &lpar;Cobaltcap-silverside&rpar; </option>
+                  <option value="Hypophthalmichthys-molitrix">Hypophthalmichthys molitrix &lpar;Silver-carp&rpar; </option>
+                  <option value="Hyporhamphus-sajori">Hyporhamphus sajori &lpar;Japanese-halfbeak&rpar; </option>
+                  <option value="Ichthyococcus-elongatus">Ichthyococcus elongatus &lpar;Slim-lightfish&rpar; </option>
+                  <option value="Icichthys-lockingtoni">Icichthys lockingtoni &lpar;Medusafish&rpar; </option>
+                  <option value="Icosteus-aenigmaticus">Icosteus aenigmaticus &lpar;Ragfish&rpar; </option>
+                  <option value="Idiacanthus-antrostomus">Idiacanthus antrostomus &lpar;Pacific-blackdragon&rpar; </option>
+                  <option value="Istiblennius-edentulus">Istiblennius edentulus &lpar;Rippled-rockskipper&rpar; </option>
+                  <option value="Istiblennius-enosimae">Istiblennius enosimae &lpar;Rippled-rockskipper&rpar; </option>
+                  <option value="Istigobius-campbelli">Istigobius campbelli &lpar;Campbell's-goby&rpar; </option>
+                  <option value="Istigobius-ornatus">Istigobius ornatus &lpar;Ornate-goby&rpar; </option>
+                  <option value="Istiompax-indica">Istiompax indica &lpar;Black-marlin&rpar; </option>
+                  <option value="Jaydia-lineata">Jaydia lineata &lpar;Indian-perch&rpar; </option>
+                  <option value="Kareius-bicoloratus">Kareius bicoloratus &lpar;Stone-flounder&rpar; </option>
+                  <option value="Katsuwonus-pelamis" selected>Katsuwonus-pelamis &lpar;Skipjack-tuna&rpar; </option>
+                  <option value="Konosirus-punctatus">Konosirus punctatus &lpar;Dotted-gizzard-shad&rpar; </option>
+                  <option value="Kuhlia-mugil">Kuhlia mugil &lpar;Barred-flagtail&rpar; </option>
+                  <option value="Kyphosus-bigibbus">Kyphosus bigibbus &lpar;Brown-chub&rpar; </option>
+                  <option value="Kyphosus-cinerascens">Kyphosus cinerascens &lpar;Blue-sea-chub&rpar; </option>
+                  <option value="Kyphosus-vaigiensis">Kyphosus vaigiensis &lpar;Brassy-chub&rpar; </option>
+                  <option value="Labracinus-cyclophthalmus">Labracinus cyclophthalmus &lpar;Fire-tail-devil&rpar; </option>
+                  <option value="Labracoglossa-argenteiventris">Labracoglossa argenteiventris &lpar;Yellowstripe-butterfish&rpar; </option>
+                  <option value="Labroides-dimidiatus">Labroides dimidiatus &lpar;Bluestreak-cleaner-wrasse&rpar; </option>
+                  <option value="Laemonema-longipes">Laemonema longipes &lpar;Longfin-codling&rpar; </option>
+                  <option value="Lagenorhynchus-obliquidens">Lagenorhynchus obliquidens &lpar;Pacific-white-sided-dolphin&rpar; </option>
+                  <option value="Lagocephalus-gloveri">Lagocephalus gloveri &lpar;Brown-backed-toadfish&rpar; </option>
+                  <option value="Lagocephalus-lagocephalus">Lagocephalus lagocephalus &lpar;Oceanic-puffer&rpar; </option>
+                  <option value="Lamna-ditropis">Lamna ditropis &lpar;Salmon-shark&rpar; </option>
+                  <option value="Lampadena-luminosa">Lampadena luminosa &lpar;Luminous-lanternfish&rpar; </option>
+                  <option value="Lampadena-urophaos">Lampadena urophaos &lpar;Sunbeam-lampfish&rpar; </option>
+                  <option value="Lampanyctus-acanthurus">Lampanyctus acanthurus &lpar;Spinytail-lampfish&rpar; </option>
+                  <option value="Lampanyctus-alatus">Lampanyctus alatus &lpar;Winged-lanternfish&rpar; </option>
+                  <option value="Lampanyctus-tenuiformis">Lampanyctus tenuiformis &lpar;Slender-lanternfish&rpar; </option>
+                  <option value="Lateolabrax-japonicus">Lateolabrax japonicus &lpar;Japanese-seabass&rpar; </option>
+                  <option value="Lepidotrigla-kanagashira">Lepidotrigla kanagashira &lpar;Lepidotrigla-kanagashira-Kamohara,-1936&rpar; </option>
+                  <option value="Lepidozygus-tapeinosoma">Lepidozygus tapeinosoma &lpar;Fusilier-damselfish&rpar; </option>
+                  <option value="Leptoclinus-maculatus">Leptoclinus maculatus &lpar;Daubed-shanny&rpar; </option>
+                  <option value="Lethrinus-atkinsoni">Lethrinus atkinsoni &lpar;Pacific-yellowtail-emperor&rpar; </option>
+                  <option value="Lethrinus-genivittatus">Lethrinus genivittatus &lpar;Longspine-emperor&rpar; </option>
+                  <option value="Lethrinus-harak">Lethrinus harak &lpar;Thumbprint-emperor&rpar; </option>
+                  <option value="Lethrinus-nebulosus">Lethrinus nebulosus &lpar;Spangled-emperor&rpar; </option>
+                  <option value="Lethrinus-obsoletus">Lethrinus obsoletus &lpar;Orange-striped-emperor&rpar; </option>
+                  <option value="Lethrinus-olivaceus">Lethrinus olivaceus &lpar;Longface-emperor&rpar; </option>
+                  <option value="Lethrinus-xanthochilus">Lethrinus xanthochilus &lpar;Yellowlip-emperor&rpar; </option>
+                  <option value="Leuresthes-tenuis">Leuresthes tenuis &lpar;California-grunion&rpar; </option>
+                  <option value="Leuroglossus-schmidti">Leuroglossus schmidti &lpar;Northern-smoothtongue&rpar; </option>
+                  <option value="Lipolagus-ochotensis">Lipolagus ochotensis &lpar;Eared-blacksmelt&rpar; </option>
+                  <option value="Liza-haematocheila">Liza haematocheila &lpar;So-iuy-mullet&rpar; </option>
+                  <option value="Liza-macrolepis">Liza macrolepis &lpar;Largescale-mullet&rpar; </option>
+                  <option value="Lobianchia-gemellarii">Lobianchia gemellarii &lpar;Cocco's-lantern-fish&rpar; </option>
+                  <option value="Lutjanus-bohar">Lutjanus bohar &lpar;Two-spot-red-snapper&rpar; </option>
+                  <option value="Lutjanus-decussatus">Lutjanus decussatus &lpar;Checkered-snapper&rpar; </option>
+                  <option value="Lutjanus-erythropterus">Lutjanus erythropterus &lpar;Crimson-snapper&rpar; </option>
+                  <option value="Lutjanus-fulviflamma">Lutjanus fulviflamma &lpar;Dory-snapper&rpar; </option>
+                  <option value="Lutjanus-fulvus">Lutjanus fulvus &lpar;Blacktail-snapper&rpar; </option>
+                  <option value="Lutjanus-gibbus">Lutjanus gibbus &lpar;Humpback-red-snapper&rpar; </option>
+                  <option value="Lutjanus-kasmira">Lutjanus kasmira &lpar;Common-bluestripe-snapper&rpar; </option>
+                  <option value="Lutjanus-monostigma">Lutjanus monostigma &lpar;One-spot-snapper&rpar; </option>
+                  <option value="Lutjanus-rivulatus">Lutjanus rivulatus &lpar;Blubberlip-snapper&rpar; </option>
+                  <option value="Lutjanus-russellii">Lutjanus russellii &lpar;Russell's-snapper&rpar; </option>
+                  <option value="Lutjanus-sebae">Lutjanus sebae &lpar;Emperor-red-snapper&rpar; </option>
+                  <option value="Luzonichthys-waitei">Luzonichthys waitei &lpar;Waite's-splitfin&rpar; </option>
+                  <option value="Lycodes-raridens">Lycodes raridens &lpar;Marbled-eelpout&rpar; </option>
+                  <option value="Macolor-niger">Macolor niger &lpar;Black-and-white-snapper&rpar; </option>
+                  <option value="Macropinna-microstoma">Macropinna microstoma &lpar;Barreleye&rpar; </option>
+                  <option value="Mallotus-villosus">Mallotus villosus &lpar;Capelin&rpar; </option>
+                  <option value="Maurolicus-japonicus">Maurolicus japonicus &lpar;North-Pacific-lightfish&rpar; </option>
+                  <option value="Maurolicus-muelleri">Maurolicus muelleri &lpar;Silvery-lightfish&rpar; </option>
+                  <option value="Megalops-cyprinoides">Megalops cyprinoides &lpar;Indo-Pacific-tarpon&rpar; </option>
+                  <option value="Megaptera-novaeangliae">Megaptera novaeangliae &lpar;Humpback-whale&rpar; </option>
+                  <option value="Meiacanthus-ditrema">Meiacanthus ditrema &lpar;One-striped-poison-fang-blenny&rpar; </option>
+                  <option value="Melichthys-niger">Melichthys niger &lpar;Black-triggerfish&rpar; </option>
+                  <option value="Melichthys-vidua">Melichthys vidua &lpar;Pinktail-triggerfish&rpar; </option>
+                  <option value="Merluccius-productus">Merluccius productus &lpar;North-Pacific-hake&rpar; </option>   # selected
+                  <option value="Microcanthus-strigatus">Microcanthus strigatus &lpar;Stripey&rpar; </option>
+                  <option value="Minysynchiropus-kiyoae">Minysynchiropus kiyoae &lpar;Kiyo’s-dragonet&rpar; </option>
+                  <option value="Mola-mola">Mola mola &lpar;Ocean-sunfish&rpar; </option>
+                  <option value="Monotaxis-grandoculis">Monotaxis grandoculis &lpar;Humpnose-big-eye-bream&rpar; </option>
+                  <option value="Moolgarda-engeli">Moolgarda engeli &lpar;Kanda&rpar; </option>
+                  <option value="Moolgarda-pedaraki">Moolgarda pedaraki &lpar;Longfin-mullet&rpar; </option>
+                  <option value="Moolgarda-seheli">Moolgarda seheli &lpar;Bluespot-mullet&rpar; </option>
+                  <option value="Mugil-cephalus">Mugil cephalus &lpar;Flathead-grey-mullet&rpar; </option>
+                  <option value="Mulloidichthys-flavolineatus">Mulloidichthys flavolineatus &lpar;Yellowstripe-goatfish&rpar; </option>
+                  <option value="Mulloidichthys-vanicolensis">Mulloidichthys vanicolensis &lpar;Yellowfin-goatfish&rpar; </option>
+                  <option value="Myctophum-nitidulum">Myctophum nitidulum &lpar;Pearly-lanternfish&rpar; </option>
+                  <option value="Myctophum-orientale">Myctophum orientale &lpar;Oriental-lanternfish&rpar; </option>
+                  <option value="Myctophum-spinosum">Myctophum spinosum &lpar;Spiny-lantern-fish&rpar; </option>
+                  <option value="Myersina-macrostoma">Myersina macrostoma &lpar;Bigmouth-shrimpgoby&rpar; </option>
+                  <option value="Myoxocephalus-scorpius">Myoxocephalus scorpius &lpar;Shorthorn-sculpin&rpar; </option>
+                  <option value="Myripristis-berndti">Myripristis berndti &lpar;Blotcheye-soldierfish&rpar; </option>
+                  <option value="Myripristis-murdjan">Myripristis murdjan &lpar;Pinecone-soldierfish&rpar; </option>
+                  <option value="Nannobrachium-regale">Nannobrachium regale &lpar;Pinpoint-lampfish&rpar; </option>
+                  <option value="Nannosalarias-nativitatis">Nannosalarias nativitatis &lpar;Pygmy-blenny&rpar; </option>
+                  <option value="Nansenia-sanrikuensis">Nansenia sanrikuensis &lpar;Bluethroat-argentine&rpar; </option>
+                  <option value="Naso-brachycentron">Naso brachycentron &lpar;Humpback-unicornfish&rpar; </option>
+                  <option value="Naso-brevirostris">Naso brevirostris &lpar;Spotted-unicornfish&rpar; </option>
+                  <option value="Naso-hexacanthus">Naso hexacanthus &lpar;Sleek-unicornfish&rpar; </option>
+                  <option value="Naso-lituratus">Naso lituratus &lpar;Orangespine-unicornfish&rpar; </option>
+                  <option value="Naso-mcdadei">Naso mcdadei &lpar;Squarenose-unicornfish&rpar; </option>
+                  <option value="Naso-tuberosus">Naso tuberosus &lpar;Humpnose-unicornfish&rpar; </option>
+                  <option value="Naso-unicornis">Naso unicornis &lpar;Bluespine-unicornfish&rpar; </option>
+                  <option value="Nealotus-tripes">Nealotus tripes &lpar;Black-snake-mackerel&rpar; </option>
+                  <option value="Nectamia-fusca">Nectamia fusca &lpar;Ghost-cardinalfish&rpar; </option>
+                  <option value="Nematalosa-come">Nematalosa come &lpar;Western-Pacific-gizzard-shad&rpar; </option>
+                  <option value="Nemichthys-scolopaceus">Nemichthys scolopaceus &lpar;Slender-snipe-eel&rpar; </option>
+                  <option value="Neoditrema-ransonnetii">Neoditrema ransonnetii &lpar;Okitango&rpar; </option>
+                  <option value="Neoniphon-sammara">Neoniphon sammara &lpar;Sammara-squirrelfish&rpar; </option>
+                  <option value="Neoscopelus-macrolepidotus">Neoscopelus macrolepidotus &lpar;Large-scaled-lantern-fish&rpar; </option>
+                  <option value="Nibea-mitsukurii">Nibea mitsukurii &lpar;Honnibe-croaker&rpar; </option>
+                  <option value="Nipponocypris-temminckii">Nipponocypris temminckii &lpar;Dark-chub&rpar; </option>
+                  <option value="Niwaella-delicata">Niwaella delicata &lpar;Ajime-loach&rpar; </option>
+                  <option value="Nomeus-gronovii">Nomeus gronovii &lpar;Man-of-war-fish&rpar; </option>
+                  <option value="Notolychnus-valdiviae">Notolychnus valdiviae &lpar;Topside-lampfish&rpar; </option>
+                  <option value="Notoscopelus-caudispinosus">Notoscopelus caudispinosus &lpar;Lobisomem&rpar; </option>
+                  <option value="Notoscopelus-japonicus">Notoscopelus japonicus &lpar;Japanese-lanternfish&rpar; </option>
+                  <option value="Notoscopelus-resplendens">Notoscopelus resplendens &lpar;Patchwork-lampfish&rpar; </option>
+                  <option value="Novaculichthys-taeniourus">Novaculichthys taeniourus &lpar;Rockmover-wrasse&rpar; </option>
+                  <option value="Novaculoides-macrolepidotus">Novaculoides macrolepidotus &lpar;Seagrass-wrasse&rpar; </option>
+                  <option value="Nuchequula-nuchalis">Nuchequula nuchalis &lpar;Spotnape-ponyfish&rpar; </option>
+                  <option value="Odontanthias-borbonius">Odontanthias borbonius &lpar;Checked-swallowtail&rpar; </option>
+                  <option value="Odonus-niger">Odonus niger &lpar;Red-toothed-triggerfish&rpar; </option>
+                  <option value="Oedalechilus-labiosus">Oedalechilus labiosus &lpar;Hornlip-mullet&rpar; </option>
+                  <option value="Omobranchus-elegans">Omobranchus elegans &lpar;Elegant-blenny&rpar; </option>
+                  <option value="Omobranchus-punctatus">Omobranchus punctatus &lpar;Muzzled-blenny&rpar; </option>
+                  <option value="Omosudis-lowii">Omosudis lowii &lpar;Omosudid&rpar; </option>
+                  <option value="Oncorhynchus-keta">Oncorhynchus keta &lpar;Chum-salmon&rpar; </option>
+                  <option value="Oncorhynchus-kisutch">Oncorhynchus kisutch &lpar;Coho-salmon&rpar; </option>
+                  <option value="Oncorhynchus-mykiss">Oncorhynchus mykiss &lpar;Rainbow-trout&rpar; </option>
+                  <option value="Oncorhynchus-nerka">Oncorhynchus nerka &lpar;Sockeye-salmon&rpar; </option>
+                  <option value="Oncorhynchus-tshawytscha">Oncorhynchus tshawytscha &lpar;Chinook-salmon&rpar; </option>
+                  <option value="Ophichthus-erabo">Ophichthus erabo &lpar;Blotched-snake-eel&rpar; </option>
+                  <option value="Oplegnathus-fasciatus">Oplegnathus fasciatus &lpar;Barred-knifejaw&rpar; </option>
+                  <option value="Oplegnathus-punctatus">Oplegnathus punctatus &lpar;Spotted-knifejaw&rpar; </option>
+                  <option value="Oplopomus-oplopomus">Oplopomus oplopomus &lpar;Spinecheek-goby&rpar; </option>
+                  <option value="Opostomias-mitsuii">Opostomias mitsuii &lpar;Pitgum-lanternfish&rpar; </option>
+                  <option value="Osmerus-eperlanus">Osmerus eperlanus &lpar;European-smelt&rpar; </option>
+                  <option value="Ostorhinchus-notatus">Ostorhinchus notatus &lpar;Spotnape-cardinalfish&rpar; </option>
+                  <option value="Ostorhinchus-semilineatus">Ostorhinchus semilineatus &lpar;Half-lined-cardinal&rpar; </option>
+                  <option value="Ostracion-cubicus">Ostracion cubicus &lpar;Yellow-boxfish&rpar; </option>
+                  <option value="Ostracion-immaculatus">Ostracion immaculatus &lpar;Bluespotted-boxfish&rpar; </option>
+                  <option value="Oxycheilinus-orientalis">Oxycheilinus orientalis &lpar;Oriental-maori-wrasse&rpar; </option>
+                  <option value="Oxyporhamphus-micropterus">Oxyporhamphus micropterus &lpar;Bigwing-halfbeak&rpar; </option>
+                  <option value="Oxyurichthys">Oxyurichthys &lpar;Arrowfin gobies&rpar; </option>
+                  <option value="Oxyurichthys-visayanus">Oxyurichthys visayanus &lpar;Speartail-goby&rpar; </option>
+                  <option value="Pagrus-major">Pagrus major &lpar;Red-seabream&rpar; </option>
+                  <option value="Pangasianodon-gigas">Pangasianodon gigas &lpar;Mekong-giant-catfish&rpar; </option>
+                  <option value="Paracaesio-xanthura">Paracaesio xanthura &lpar;Yellowtail-blue-snapper&rpar; </option>
+                  <option value="Paracentropogon-rubripinnis">Paracentropogon rubripinnis &lpar;Redfin-waspfish&rpar; </option>
+                  <option value="Paracirrhites-arcatus">Paracirrhites arcatus &lpar;Arc-eye-hawkfish&rpar; </option>
+                  <option value="Paracirrhites-forsteri">Paracirrhites forsteri &lpar;Blackside-hawkfish&rpar; </option>
+                  <option value="Paragobiodon-modestus">Paragobiodon modestus &lpar;Warthead-goby&rpar; </option>
+                  <option value="Paragobiodon-xanthosoma">Paragobiodon xanthosoma &lpar;Emerald-coral-goby&rpar; </option>
+                  <option value="Paralichthys-olivaceus">Paralichthys olivaceus &lpar;Bastard-halibut&rpar; </option>
+                  <option value="Parapercis-cylindrica">Parapercis cylindrica &lpar;Cylindrical-sandperch&rpar; </option>
+                  <option value="Parapercis-multifasciata">Parapercis multifasciata &lpar;Gold-birdled-sandsmelt&rpar; </option>
+                  <option value="Parapercis-multiplicata">Parapercis multiplicata &lpar;Redbarred-sandperch&rpar; </option>
+                  <option value="Paraplagusia-japonica">Paraplagusia japonica &lpar;Black-cow-tongue&rpar; </option>
+                  <option value="Parapriacanthus-ransonneti">Parapriacanthus ransonneti &lpar;Golden-sweeper&rpar; </option>
+                  <option value="Parapristipoma-trilineatum">Parapristipoma trilineatum &lpar;Chicken-grunt&rpar; </option>
+                  <option value="Parascorpaena-aurita">Parascorpaena aurita &lpar;Golden-scorpionfish&rpar; </option>
+                  <option value="Parastromateus-niger">Parastromateus niger &lpar;Black-pomfret&rpar; </option>
+                  <option value="Parexocoetus-brachypterus">Parexocoetus brachypterus &lpar;Sailfin-flyingfish&rpar; </option>
+                  <option value="Parupeneus-barberinoides">Parupeneus barberinoides &lpar;Bicolor-goatfish&rpar; </option>
+                  <option value="Parupeneus-barberinus">Parupeneus barberinus &lpar;Dash-and-dot-goatfish&rpar; </option>
+                  <option value="Parupeneus-ciliatus">Parupeneus ciliatus &lpar;Whitesaddle-goatfish&rpar; </option>
+                  <option value="Parupeneus-indicus">Parupeneus indicus &lpar;Indian-goatfish&rpar; </option>
+                  <option value="Parupeneus-insularis">Parupeneus insularis &lpar;Twosaddle-goatfish&rpar; </option>
+                  <option value="Parupeneus-multifasciatus">Parupeneus multifasciatus &lpar;Manybar-goatfish&rpar; </option>
+                  <option value="Pempheris-adusta">Pempheris adusta &lpar;Dusky-sweeper&rpar; </option>
+                  <option value="Pempheris-oualensis">Pempheris oualensis &lpar;Blackspot-sweeper&rpar; </option>
+                  <option value="Pempheris-schwenkii">Pempheris schwenkii &lpar;Silver-sweeper&rpar; </option>
+                  <option value="Pennahia-argentata">Pennahia argentata &lpar;Silver-croaker&rpar; </option>
+                  <option value="Pennahia-macrocephalus">Pennahia macrocephalus &lpar;Big-head-pennah-croaker&rpar; </option>
+                  <option value="Pentaceros-japonicus">Pentaceros japonicus &lpar;Japanese-armorhead&rpar; </option>
+                  <option value="Pervagor-janthinosoma">Pervagor janthinosoma &lpar;Blackbar-filefish&rpar; </option>
+                  <option value="Petroscirtes-breviceps">Petroscirtes breviceps &lpar;Striped-poison-fang-blenny-mimic&rpar; </option>
+                  <option value="Petroscirtes-mitratus">Petroscirtes mitratus &lpar;Floral-blenny&rpar; </option>
+                  <option value="Phoca-vitulina">Phoca vitulina &lpar;Harbor-seal&rpar; </option>
+                  <option value="Phocoena-phocoena">Phocoena phocoena &lpar;Harbor-porpoise&rpar; </option>
+                  <option value="Photonectes-albipennis">Photonectes albipennis &lpar;Whitepen-dragonfish&rpar; </option>
+                  <option value="Phoxinus-phoxinus">Phoxinus phoxinus &lpar;Eurasian-minnow&rpar; </option>
+                  <option value="Platichthys-stellatus">Platichthys stellatus &lpar;Starry-flounder&rpar; </option>
+                  <option value="Platybelone-argalus-platyura">Platybelone argalus-platyura &lpar;Keeled-needlefish&rpar; </option>
+                  <option value="Plecoglossus-altivelis-altivelis">Plecoglossus altivelis-altivelis &lpar;Ayu-sweetfish&rpar; </option>
+                  <option value="Plectorhinchus-cinctus">Plectorhinchus cinctus &lpar;Crescent-sweetlips&rpar; </option>
+                  <option value="Plectorhinchus-gibbosus">Plectorhinchus gibbosus &lpar;Harry-hotlips&rpar; </option>
+                  <option value="Plectorhinchus-vittatus">Plectorhinchus vittatus &lpar;Indian-Ocean-oriental-sweetlips&rpar; </option>
+                  <option value="Plectranthias-nanus">Plectranthias nanus &lpar;Bownband-perchlet&rpar; </option>
+                  <option value="Plectranthias-wheeleri">Plectranthias wheeleri &lpar;Spotted-perchlet&rpar; </option>
+                  <option value="Plectroglyphidodon-dickii">Plectroglyphidodon dickii &lpar;Blackbar-devil&rpar; </option>
+                  <option value="Plectroglyphidodon-imparipennis">Plectroglyphidodon imparipennis &lpar;Brighteye-damselfish&rpar; </option>
+                  <option value="Plectroglyphidodon-johnstonianus">Plectroglyphidodon johnstonianus &lpar;Johnston-Island-damsel&rpar; </option>
+                  <option value="Plectroglyphidodon-lacrymatus">Plectroglyphidodon lacrymatus &lpar;Whitespotted-devil&rpar; </option>
+                  <option value="Plectroglyphidodon-leucozonus">Plectroglyphidodon leucozonus &lpar;Singlebar-devil&rpar; </option>
+                  <option value="Plectroglyphidodon-phoenixensis">Plectroglyphidodon phoenixensis &lpar;Phoenix-devil&rpar; </option>
+                  <option value="Plesiops-cephalotaenia">Plesiops cephalotaenia &lpar;Headstripe-longfin&rpar; </option>
+                  <option value="Pleuronectes-quadrituberculatus">Pleuronectes quadrituberculatus &lpar;Alaska-plaice&rpar; </option>
+                  <option value="Pleuronichthys-cornutus">Pleuronichthys cornutus &lpar;Ridged-eye-flounder&rpar; </option>
+                  <option value="Pomacentrus-auriventris">Pomacentrus auriventris &lpar;Goldbelly-damsel&rpar; </option>
+                  <option value="Pomacentrus-coelestis">Pomacentrus coelestis &lpar;Neon-damselfish&rpar; </option>
+                  <option value="Pomacentrus-lepidogenys">Pomacentrus lepidogenys &lpar;Scaly-damsel&rpar; </option>
+                  <option value="Pomacentrus-moluccensis">Pomacentrus moluccensis &lpar;Lemon-damsel&rpar; </option>
+                  <option value="Pomacentrus-philippinus">Pomacentrus philippinus &lpar;Philippine-damsel&rpar; </option>
+                  <option value="Pomacentrus-vaiuli">Pomacentrus vaiuli &lpar;Ocellate-damselfish&rpar; </option>
+                  <option value="Pomachromis-richardsoni">Pomachromis richardsoni &lpar;Richardson's-reef-damsel&rpar; </option>
+                  <option value="Priacanthus-blochii">Priacanthus blochii &lpar;Paeony-bulleye&rpar; </option>
+                  <option value="Priolepis-semidoliata">Priolepis semidoliata &lpar;Half-barred-goby&rpar; </option>
+                  <option value="Prionurus-scalprum">Prionurus scalprum &lpar;Scalpel-sawtail&rpar; </option>
+                  <option value="Pristigenys-niphonia">Pristigenys niphonia &lpar;Japanese-bigeye&rpar; </option>
+                  <option value="Pristipomoides-multidens">Pristipomoides multidens &lpar;Goldbanded-jobfish&rpar; </option>
+                  <option value="Psenes-cyanophrys">Psenes cyanophrys &lpar;Freckled-driftfish&rpar; </option>
+                  <option value="Psenopsis-anomala">Psenopsis anomala &lpar;Pacific-rudderfish&rpar; </option>
+                  <option value="Pseudanthias-dispar">Pseudanthias dispar &lpar;Peach-fairy-basslet&rpar; </option>
+                  <option value="Pseudanthias-ignitus">Pseudanthias ignitus &lpar;Flame-anthias&rpar; </option>
+                  <option value="Pseudanthias-parvirostris">Pseudanthias parvirostris &lpar;Sunset-anthias&rpar; </option>
+                  <option value="Pseudanthias-pascalus">Pseudanthias pascalus &lpar;Amethyst-anthias&rpar; </option>
+                  <option value="Pseudanthias-squamipinnis">Pseudanthias squamipinnis &lpar;Sea-goldie&rpar; </option>
+                  <option value="Pseudocaranx-dentex">Pseudocaranx dentex &lpar;White-trevally&rpar; </option>
+                  <option value="Pseudocheilinus-hexataenia">Pseudocheilinus hexataenia &lpar;Sixline-wrasse&rpar; </option>
+                  <option value="Pseudocheilinus-octotaenia">Pseudocheilinus octotaenia &lpar;Eight-lined-wrasse&rpar; </option>
+                  <option value="Pseudochromis-cyanotaenia">Pseudochromis cyanotaenia &lpar;Surge-dottyback&rpar; </option>
+                  <option value="Pseudocoris-aurantiofasciata">Pseudocoris aurantiofasciata &lpar;Rust-banded-wrasse&rpar; </option>
+                  <option value="Pseudogobio-esocinus">Pseudogobio esocinus &lpar;Kamatsuka&rpar; </option>
+                  <option value="Pseudolabrus-eoethinus">Pseudolabrus eoethinus &lpar;Red-naped-wrasse&rpar; </option>
+                  <option value="Pseudolabrus-sieboldi">Pseudolabrus sieboldi &lpar;Bambooleaf-wrasse&rpar; </option>
+                  <option value="Ptereleotris-evides">Ptereleotris evides &lpar;Blackfin-dartfish&rpar; </option>
+                  <option value="Ptereleotris-microlepis">Ptereleotris microlepis &lpar;Blue-gudgeon&rpar; </option>
+                  <option value="Ptereleotris-zebra">Ptereleotris zebra &lpar;Chinese-zebra-goby&rpar; </option>
+                  <option value="Pterocaesio-chrysozona">Pterocaesio chrysozona &lpar;Goldband-fusilier&rpar; </option>
+                  <option value="Pterocaesio-marri">Pterocaesio marri &lpar;Marr's-fusilier&rpar; </option>
+                  <option value="Pterocaesio-pisang">Pterocaesio pisang &lpar;Banana-fusilier&rpar; </option>
+                  <option value="Pterocaesio-tile">Pterocaesio tile &lpar;Dark-banded-fusilier&rpar; </option>
+                  <option value="Pterocaesio-trilineata">Pterocaesio trilineata &lpar;Three-stripe-fusilier&rpar; </option>
+                  <option value="Pterothrissus-gissu">Pterothrissus gissu &lpar;Japanese-gissu&rpar; </option>
+                  <option value="Rabaulichthys-suzukii">Rabaulichthys suzukii &lpar;Suzuki's-anthias&rpar; </option>
+                  <option value="Rachycentron-canadum">Rachycentron canadum &lpar;Cobia&rpar; </option>
+                  <option value="Rastrelliger-kanagurta">Rastrelliger kanagurta &lpar;Indian-mackerel&rpar; </option>
+                  <option value="Repomucenus-curvicornis">Repomucenus curvicornis &lpar;Horn-dragonet&rpar; </option>
+                  <option value="Rexea-nakamurai">Rexea nakamurai &lpar;Nakamura's-escolar&rpar; </option>
+                  <option value="Rexea-prometheoides">Rexea prometheoides &lpar;Royal-escolar&rpar; </option>
+                  <option value="Rhabdoblennius-nitidus">Rhabdoblennius nitidus &lpar;Barred-chin-blenny&rpar; </option>
+                  <option value="Rhinecanthus-aculeatus">Rhinecanthus aculeatus &lpar;White-banded-triggerfish&rpar; </option>
+                  <option value="Rhinecanthus-rectangulus">Rhinecanthus rectangulus &lpar;Wedge-tail-triggerfish&rpar; </option>
+                  <option value="Rhinecanthus-verrucosus">Rhinecanthus verrucosus &lpar;Blackbelly-triggerfish&rpar; </option>
+                  <option value="Rhinogobius-brunneus">Rhinogobius brunneus &lpar;Amur-goby&rpar; </option>
+                  <option value="Rosenblattichthys-alatus">Rosenblattichthys alatus &lpar;Winged-pearleye&rpar; </option>
+                  <option value="Rudarius-ercodes">Rudarius ercodes &lpar;Whitespotted-pygmy-filefish&rpar; </option>
+                  <option value="Ruvettus-pretiosus">Ruvettus pretiosus &lpar;Oilfish&rpar; </option>
+                  <option value="Salarias-fasciatus">Salarias fasciatus &lpar;Jewelled-blenny&rpar; </option>
+                  <option value="Salarias-guttatus">Salarias guttatus &lpar;Breast-spot-blenny&rpar; </option>
+                  <option value="Salarias-sinuosus">Salarias sinuosus &lpar;Fringelip-blenny&rpar; </option>
+                  <option value="Salmo-salar">Salmo salar &lpar;Atlantic-salmon&rpar; </option>
+                  <option value="Salmo-trutta">Salmo trutta &lpar;Sea-trout&rpar; </option>
+                  <option value="Sardinella-lemuru">Sardinella lemuru &lpar;Bali-sardinella&rpar; </option>
+                  <option value="Sardinella-zunasi">Sardinella zunasi &lpar;Japanese-sardinella&rpar; </option>
+                  <option value="Sardinops-melanostictus">Sardinops melanostictus &lpar;South-American-pilchard&rpar; </option>
+                  <option value="Sargocentron-caudimaculatum">Sargocentron caudimaculatum &lpar;Silverspot-squirrelfish&rpar; </option>
+                  <option value="Sargocentron-ittodai">Sargocentron ittodai &lpar;Samurai-squirrelfish&rpar; </option>
+                  <option value="Sargocentron-praslin">Sargocentron praslin &lpar;Dark-striped-squirrelfish&rpar; </option>
+                  <option value="Sargocentron-punctatissimum">Sargocentron punctatissimum &lpar;Speckled-squirrelfish&rpar; </option>
+                  <option value="Sargocentron-rubrum">Sargocentron rubrum &lpar;Redcoat&rpar; </option>
+                  <option value="Sargocentron-tiere">Sargocentron tiere &lpar;Blue-lined-squirrelfish&rpar; </option>
+                  <option value="Saurenchelys-fierasfer">Saurenchelys fierasfer &lpar;Blacktail-buckbill-eel&rpar; </option>
+                  <option value="Scarus-altipinnis">Scarus altipinnis &lpar;Filament-finned-parrotfish&rpar; </option>
+                  <option value="Scarus-dimidiatus">Scarus dimidiatus &lpar;Yellowbarred-parrotfish&rpar; </option>
+                  <option value="Scarus-forsteni">Scarus forsteni &lpar;Forsten's-parrotfish&rpar; </option>
+                  <option value="Scarus-frenatus">Scarus frenatus &lpar;Bridled-parrotfish&rpar; </option>
+                  <option value="Scarus-ghobban">Scarus ghobban &lpar;Blue-barred-parrotfish&rpar; </option>
+                  <option value="Scarus-globiceps">Scarus globiceps &lpar;Globehead-parrotfish&rpar; </option>
+                  <option value="Scarus-niger">Scarus niger &lpar;Dusky-parrotfish&rpar; </option>
+                  <option value="Scarus-ovifrons">Scarus ovifrons &lpar;Knobsnout-parrotfish&rpar; </option>
+                  <option value="Scarus-prasiognathos">Scarus prasiognathos &lpar;Singapore-parrotfish&rpar; </option>
+                  <option value="Scarus-psittacus">Scarus psittacus &lpar;Common-parrotfish&rpar; </option>
+                  <option value="Scarus-rivulatus">Scarus rivulatus &lpar;Rivulated-parrotfish&rpar; </option>
+                  <option value="Scarus-rubroviolaceus">Scarus rubroviolaceus &lpar;Ember-parrotfish&rpar; </option>
+                  <option value="Scarus-schlegeli">Scarus schlegeli &lpar;Yellowband-parrotfish&rpar; </option>
+                  <option value="Scarus-spinus">Scarus spinus &lpar;Greensnout-parrotfish&rpar; </option>
+                  <option value="Scarus-tricolor">Scarus tricolor &lpar;Tricolour-parrotfish&rpar; </option>
+                  <option value="Scomber-australasicus">Scomber australasicus &lpar;Blue-mackerel&rpar; </option>
+                  <option value="Scomber-japonicus">Scomber japonicus &lpar;Chub-mackerel&rpar; </option>
+                  <option value="Scomber-scombrus">Scomber scombrus &lpar;Atlantic-mackerel&rpar; </option>
+                  <option value="Scomberoides-lysan">Scomberoides lysan &lpar;Doublespotted-queenfish&rpar; </option>
+                  <option value="Scomberomorus-niphonius">Scomberomorus niphonius &lpar;Japanese-Spanish-mackerel&rpar; </option>
+                  <option value="Scomberomorus-sinensis">Scomberomorus sinensis &lpar;Chinese-seerfish&rpar; </option>
+                  <option value="Scombrops-boops">Scombrops boops &lpar;Gnomefish&rpar; </option>
+                  <option value="Scopeloberyx-robustus">Scopeloberyx robustus &lpar;Longjaw-bigscale&rpar; </option>
+                  <option value="Scopelosaurus-harryi">Scopelosaurus harryi &lpar;Scaly-paperbone&rpar; </option>
+                  <option value="Scorpaena-miostoma">Scorpaena miostoma &lpar;Kokuchi-fusakasago&rpar; </option>
+                  <option value="Scorpaenodes-evides">Scorpaenodes evides &lpar;Cheekspot-scorpionfish&rpar; </option>
+                  <option value="Scorpaenopsis-cirrosa">Scorpaenopsis cirrosa &lpar;Weedy-stingfish&rpar; </option>
+                  <option value="Scorpaenopsis-diabolus">Scorpaenopsis diabolus &lpar;False-stonefish&rpar; </option>
+                  <option value="Scorpaenopsis-neglecta">Scorpaenopsis neglecta &lpar;Yellowfin-scorpionfish&rpar; </option>
+                  <option value="Sebastapistes-cyanostigma">Sebastapistes cyanostigma &lpar;Yellowspotted-scorpionfish&rpar; </option>
+                  <option value="Sebastapistes-strongia">Sebastapistes strongia &lpar;Barchin-scorpionfish&rpar; </option>
+                  <option value="Sebastapistes-tinkhami">Sebastapistes tinkhami &lpar;Darkspotted-scorpionfish&rpar; </option>
+                  <option value="Sebastes-mentella">Sebastes mentella &lpar;Beaked-redfish&rpar; </option>
+                  <option value="Sebastiscus-marmoratus">Sebastiscus marmoratus &lpar;False-kelpfish&rpar; </option>
+                  <option value="Sebastolobus-macrochir">Sebastolobus macrochir &lpar;Broadbanded-thornyhead&rpar; </option>
+                  <option value="Selenanthias-analis">Selenanthias analis &lpar;Pearl-spotted-fairy-basslet&rpar; </option>
+                  <option value="Seriola-dumerili">Seriola dumerili &lpar;Greater-amberjack&rpar; </option>
+                  <option value="Seriola-quinqueradiata">Seriola quinqueradiata &lpar;Japanese-amberjack&rpar; </option>
+                  <option value="Seriola-rivoliana">Seriola rivoliana &lpar;Longfin-yellowtail&rpar; </option>
+                  <option value="Serranocirrhitus-latus">Serranocirrhitus latus &lpar;Hawkfish-anthias&rpar; </option>
+                  <option value="Siganus-argenteus">Siganus argenteus &lpar;Streamlined-spinefoot&rpar; </option>
+                  <option value="Siganus-fuscescens">Siganus fuscescens &lpar;Mottled-spinefoot&rpar; </option>
+                  <option value="Siganus-spinus">Siganus spinus &lpar;Little-spinefoot&rpar; </option>
+                  <option value="Sigmops-gracilis">Sigmops gracilis &lpar;Slender-fangjaw&rpar; </option>
+                  <option value="Sillago-japonica">Sillago japonica &lpar;Japanese-sillago&rpar; </option>
+                  <option value="Silurus-asotus">Silurus asotus &lpar;Amur-catfish&rpar; </option>
+                  <option value="Sphoeroides-pachygaster">Sphoeroides pachygaster &lpar;Blunthead-puffer&rpar; </option>
+                  <option value="Sphyraena-japonica">Sphyraena japonica &lpar;Japanese-barracuda&rpar; </option>
+                  <option value="Sphyraena-obtusata">Sphyraena obtusata &lpar;Obtuse-barracuda&rpar; </option>
+                  <option value="Sphyraena-pinguis">Sphyraena pinguis &lpar;Red-barracuda&rpar; </option>
+                  <option value="Spratelloides-delicatulus">Spratelloides delicatulus &lpar;Delicate-round-herring&rpar; </option>
+                  <option value="Spratelloides-gracilis">Spratelloides gracilis &lpar;Silver-stripe-round-herring&rpar; </option>
+                  <option value="Squalius-cephalus">Squalius cephalus &lpar;Chub&rpar; </option>
+                  <option value="Stegastes-albifasciatus">Stegastes albifasciatus &lpar;Whitebar-gregory&rpar; </option>
+                  <option value="Stegastes-altus">Stegastes altus &lpar;Japanese-gregory&rpar; </option>
+                  <option value="Stegastes-fasciolatus">Stegastes fasciolatus &lpar;Pacific-gregory&rpar; </option>
+                  <option value="Stegastes-insularis">Stegastes insularis &lpar;Island-gregory&rpar; </option>
+                  <option value="Stegastes-nigricans">Stegastes nigricans &lpar;Dusky-farmerfish&rpar; </option>
+                  <option value="Stenobrachius-leucopsarus">Stenobrachius leucopsarus &lpar;Northern-lampfish&rpar; </option>
+                  <option value="Stephanolepis-cirrhifer">Stephanolepis cirrhifer &lpar;Threadsail-filefish&rpar; </option>
+                  <option value="Stethojulis-bandanensis">Stethojulis bandanensis &lpar;Red-shoulder-wrasse&rpar; </option>
+                  <option value="Stomias-affinis">Stomias affinis &lpar;Günther's-boafish&rpar; </option>
+                  <option value="Stomias-atriventer">Stomias atriventer &lpar;Black-belly-dragonfish&rpar; </option>
+                  <option value="Stomias-nebulosus">Stomias nebulosus &lpar;Alcock's-boafish&rpar; </option>
+                  <option value="Strongylura-incisa">Strongylura incisa &lpar;Reef-needlefish&rpar; </option>
+                  <option value="Suezichthys-notatus">Suezichthys notatus &lpar;Northern-rainbow-wrasse&rpar; </option>
+                  <option value="Sufflamen-chrysopterum">Sufflamen chrysopterum &lpar;Halfmoon-triggerfish&rpar; </option>
+                  <option value="Sufflamen-fraenatum">Sufflamen fraenatum &lpar;Masked-triggerfish&rpar; </option>
+                  <option value="Sunagocia-otaitensis">Sunagocia otaitensis &lpar;Fringelip-flathead&rpar; </option>
+                  <option value="Symbolophorus-californiensis">Symbolophorus californiensis &lpar;Bigfin-lanternfish&rpar; </option>
+                  <option value="Symbolophorus-evermanni">Symbolophorus evermanni &lpar;Evermann's-lantern-fish&rpar; </option>
+                  <option value="Symphysanodon-katayamai">Symphysanodon katayamai &lpar;Yellowstripe-slopefish&rpar; </option>
+                  <option value="Synagrops-philippinensis">Synagrops philippinensis &lpar;Sharptooth-seabass&rpar; </option>
+                  <option value="Synanceia-verrucosa">Synanceia verrucosa &lpar;Stonefish&rpar; </option>
+                  <option value="Synodus-dermatogenys">Synodus dermatogenys &lpar;Sand-lizardfish&rpar; </option>
+                  <option value="Synodus-hoshinonis">Synodus hoshinonis &lpar;Blackear-lizardfish&rpar; </option>
+                  <option value="Synodus-oculeus">Synodus oculeus &lpar;Large-eye-lizardfish&rpar; </option>
+                  <option value="Synodus-ulae">Synodus ulae &lpar;Red-lizard-fish&rpar; </option>
+                  <option value="Synodus-variegatus">Synodus variegatus &lpar;Variegated-lizardfish&rpar; </option>
+                  <option value="Tactostoma-macropus">Tactostoma macropus &lpar;Longfin-dragonfish&rpar; </option>
+                  <option value="Takifugu-niphobles">Takifugu niphobles &lpar;Komon-damashi&rpar; </option>
+                  <option value="Tetragonurus-cuvieri">Tetragonurus cuvieri &lpar;Smalleye-squaretail&rpar; </option>
+                  <option value="Tetrapturus-angustirostris">Tetrapturus angustirostris &lpar;Shortbill-spearfish&rpar; </option>
+                  <option value="Thalassoma-amblycephalum">Thalassoma amblycephalum &lpar;Bluntheaded-wrasse&rpar; </option>
+                  <option value="Thalassoma-hardwicke">Thalassoma hardwicke &lpar;Sixbar-wrasse&rpar; </option>
+                  <option value="Thalassoma-jansenii">Thalassoma jansenii &lpar;Jansen's-wrasse&rpar; </option>
+                  <option value="Thalassoma-lunare">Thalassoma lunare &lpar;Moon-wrasse&rpar; </option>
+                  <option value="Thalassoma-lutescens">Thalassoma lutescens &lpar;Yellow-brown-wrasse&rpar; </option>
+                  <option value="Thalassoma-purpureum">Thalassoma purpureum &lpar;Surge-wrasse&rpar; </option>
+                  <option value="Thalassoma-quinquevittatum">Thalassoma quinquevittatum &lpar;Fivestripe-wrasse&rpar; </option>
+                  <option value="Thalassoma-trilobatum">Thalassoma trilobatum &lpar;Christmas-wrasse&rpar; </option>
+                  <option value="Thunnus-alalunga">Thunnus alalunga &lpar;Albacore&rpar; </option>
+                  <option value="Tomiyamichthys-oni">Tomiyamichthys oni &lpar;Monster-shrimpgoby&rpar; </option>
+                  <option value="Tosana-niwae">Tosana niwae &lpar;Threadtail-anthias&rpar; </option>
+                  <option value="Trachinotus-blochii">Trachinotus blochii &lpar;Snubnose-pompano&rpar; </option>
+                  <option value="Trachurus-japonicus">Trachurus japonicus &lpar;Japanese-jack-mackerel&rpar; </option>
+                  <option value="Triacanthus-biaculeatus">Triacanthus biaculeatus &lpar;Short-nosed-tripodfish&rpar; </option>
+                  <option value="Tribolodon-hakonensis">Tribolodon hakonensis &lpar;Big-scaled-redfin&rpar; </option>
+                  <option value="Trichiurus-lepturus">Trichiurus lepturus &lpar;Largehead-hairtail&rpar; </option>
+                  <option value="Tridentiger-obscurus">Tridentiger obscurus &lpar;Dusky-tripletooth-goby&rpar; </option>
+                  <option value="Trimmatom-pharus">Trimmatom pharus &lpar;Lifehouse-dwarfgoby&rpar; </option>
+                  <option value="Triphoturus-nigrescens">Triphoturus nigrescens &lpar;Highseas-lampfish&rpar; </option>
+                  <option value="Tursiops-aduncus">Tursiops aduncus &lpar;Indo-pacific-bottlenose-dolphin&rpar; </option>
+                  <option value="Tursiops-truncatus">Tursiops truncatus &lpar;Common-bottlenose-dolphin&rpar; </option>
+                  <option value="Tylosurus-acus-melanotus">Tylosurus acus-melanotus &lpar;Keel-jawed-needle-fish&rpar; </option>
+                  <option value="Tylosurus-crocodilus">Tylosurus crocodilus &lpar;Hound-needlefish&rpar; </option>
+                  <option value="Tylosurus-crocodilus-crocodilus">Tylosurus crocodilus-crocodilus &lpar;Hound-needlefish&rpar; </option>
+                  <option value="Ucla-xenogrammus">Ucla xenogrammus &lpar;Largemouth-triplefin&rpar; </option>
+                  <option value="Upeneus-japonicus">Upeneus japonicus &lpar;Japanese-goatfish&rpar; </option>
+                  <option value="Valenciennea-longipinnis">Valenciennea longipinnis &lpar;Long-finned-goby&rpar; </option>
+                  <option value="Valenciennea-sexguttata">Valenciennea sexguttata &lpar;Sixspot-goby&rpar; </option>
+                  <option value="Valenciennea-strigata">Valenciennea strigata &lpar;Blueband-goby&rpar; </option>
+                  <option value="Vinciguerria-attenuata">Vinciguerria attenuata &lpar;Slender-lightfish&rpar; </option>
+                  <option value="Vinciguerria-nimbaria">Vinciguerria nimbaria &lpar;Oceanic-lightfish&rpar; </option>
+                  <option value="Woodsia-nonsuchae">Woodsia nonsuchae &lpar;Bigeye-lightfish&rpar; </option>
+                  <option value="Xenolepidichthys-dalgleishi">Xenolepidichthys dalgleishi &lpar;Spotted-tinselfish&rpar; </option>
+                  <option value="Yirrkala-misolensis">Yirrkala misolensis &lpar;Misol-snake-eel&rpar; </option>
+                  <option value="Zacco-platypus">Zacco platypus &lpar;Freshwater-minnow&rpar; </option>
+                  <option value="Zalophus-californianus">Zalophus californianus &lpar;California-sea-lion&rpar; </option>
+                  <option value="Zanclus-cornutus">Zanclus cornutus &lpar;Moorish-idol&rpar; </option>
+                  <option value="Zebrasoma-flavescens">Zebrasoma flavescens &lpar;Yellow-tang&rpar; </option>
+                  <option value="Zenion-japonicum">Zenion japonicum &lpar;Japanese-dory&rpar; </option>
+
+
+                  <option disabled>### Dinoflagellates ##################</option>
+                  <option value="Abedinium-dasypus">Abedinium dasypus &lpar;Dinoflagellate&rpar; </option>
+                  <option value="Akashiwo-sanguinea">Akashiwo sanguinea &lpar;Dinoflagellate&rpar; </option>
+                  <option value="Alexandrium-affine">Alexandrium affine &lpar;HAB dinoflagellate&rpar; </option>
+                  <option value="Alexandrium-leei">Alexandrium leei &lpar;HAB dinoflagellate&rpar; </option>
+                  <option value="Amphidinium-gibbosum">Amphidinium gibbosum &lpar;HAB dinoflagellate&rpar; </option>
+                  <option value="Azadinium-trinitatum">Azadinium trinitatum &lpar;HAB dinoflagellate&rpar; </option>
+                  <option value="Ceratocorys-horrida">Ceratocorys horrida &lpar;Dinoflagellate&rpar; </option>
+                  <option value="Goniodoma-polyedricum">Goniodoma polyedricum &lpar;HAB dinoflagellate&rpar; </option>
+                  <option value="Gonyaulax-polygramma">Gonyaulax polygramma &lpar;Dinoflagellate&rpar; </option>
+                  <option value="Gymnodinium-impudicum">Gymnodinium impudicum &lpar;Dinoflagellate&rpar; </option>
+                  <option value="Gyrodinium-dominans">Gyrodinium dominans &lpar;Dinoflagellate&rpar; </option>
+                  <option value="Gyrodinium-fusiforme">Gyrodinium fusiforme &lpar;Dinoflagellate&rpar; </option>
+                  <option value="Gyrodinium-gutrula">Gyrodinium gutrula &lpar;Dinoflagellate&rpar; </option>
+                  <option value="Islandinium-tricingulatum">Islandinium tricingulatum &lpar;Dinoflagellate&rpar; </option>
+                  <option value="Karlodinium-veneficum">Karlodinium veneficum &lpar;HAB dinoflagellate&rpar; </option>
+                  <option value="Kofoidinium-pavillardii">Kofoidinium pavillardii &lpar;Dinoflagellate&rpar; </option>
+                  <option value="Margalefidinium-polykrikoides">Margalefidinium polykrikoides &lpar;Margalef [HAB]&rpar; </option>
+                  <option value="Paragymnodinium-shiwhaense">Paragymnodinium shiwhaense &lpar;Dinoflagellate&rpar; </option>
+                  <option value="Pentapharsodinium-tyrrhenicum">Pentapharsodinium tyrrhenicum &lpar;Dinoflagellate&rpar; </option>
+                  <option value="Polykrikos-schwartzii">Polykrikos schwartzii &lpar;Dinoflagellate&rpar; </option>
+                  <option value="Prorocentrum-cordatum">Prorocentrum cordatum &lpar;Dinoflagellate&rpar; </option>
+                  <option value="Prorocentrum-nanum">Prorocentrum nanum &lpar;Dinoflagellate&rpar; </option>
+                  <option value="Protoceratium-reticulatum">Protoceratium reticulatum &lpar;HAB dinoflagellate&rpar; </option>
+                  <option value="Protoperidinium-bipes">Protoperidinium bipes &lpar;Dinoflagellate&rpar; </option>
+                  <option value="Pyrophacus-steinii">Pyrophacus steinii &lpar;Dinoflagellate&rpar; </option>
+                  <option value="Scrippsiella-acuminata">Scrippsiella acuminata &lpar;Dinoflagellate&rpar; </option>
+                  <option value="Takayama-pulchella">Takayama pulchella &lpar;HAB dinoflagellate&rpar; </option>
+                  <option value="Torodinium-teredo">Torodinium teredo &lpar;Dinoflagellate&rpar; </option>
+                  <option value="Tripos-furca">Tripos furca &lpar;Dinoflagellate&rpar; </option>
+                  <option value="Tripos-fusus">Tripos fusus &lpar;Dinoflagellate&rpar; </option>
+
+
+                  <option disabled>### Corals ##################</option>
+                  <option value="Acanthastrea">Acanthastrea &lpar;Acan coral&rpar; </option>
+                  <option value="Acropora">Acropora &lpar;Table coral&rpar; </option>
+                  <option value="Anthemiphyllia">Anthemiphyllia &lpar;Coral&rpar; </option>
+                  <option value="Astreopora">Astreopora &lpar;Star coral&rpar; </option>
+                  <option value="Crispatotrochus">Crispatotrochus &lpar;Coral&rpar; </option>
+                  <option value="Dipsastraea">Dipsastraea &lpar;Moon coral&rpar; </option>
+                  <option value="Favites">Favites &lpar;Brain coral&rpar; </option>
+                  <option value="Fimbriaphyllia">Fimbriaphyllia &lpar;Anchor coral&rpar; </option>
+                  <option value="Galaxea">Galaxea &lpar;Crystal coral&rpar; </option>
+                  <option value="Goniastrea">Goniastrea &lpar;Honeycomb coral&rpar; </option>
+                  <option value="Heliofungia">Heliofungia &lpar;Plate coral&rpar; </option>
+                  <option value="Herpolitha">Herpolitha &lpar;Tongue coral&rpar; </option>
+                  <option value="Hydnophora">Hydnophora &lpar;Horn coral&rpar; </option>
+                  <option value="Isopora">Isopora &lpar;Coral&rpar; </option>
+                  <option value="Lobophyllia">Lobophyllia &lpar;Lobo coral&rpar; </option>
+                  <option value="Madracis">Madracis &lpar;Ten Rayed-Star-coral&rpar; </option>
+                  <option value="Montipora">Montipora &lpar;Velvet coral&rpar; </option>
+                  <option value="Pavona">Pavona &lpar;Cactus coral&rpar; </option>
+                  <option value="Platygyra">Platygyra &lpar;Maze coral&rpar; </option>
+                  <option value="Plesiastrea">Plesiastrea &lpar;Knob coral&rpar; </option>
+                  <option value="Pocillopora">Pocillopora &lpar;Cauliflower coral&rpar; </option>
+                  <option value="Polyphyllia">Polyphyllia &lpar;Slipper coral&rpar; </option>
+                  <option value="Porites">Porites &lpar;Finger coral&rpar; </option>
+                  <option value="Psammocora">Psammocora &lpar;Cat's Paw-coral&rpar; </option>
+                  <option value="Turbinaria">Turbinaria &lpar;Scroll coral&rpar; </option>
+                </select>
+      </td>
+    </tr>
+
+
+    <tr>
+      <td>&nbsp;&nbsp;&nbsp; or enter keywords</td>
+      <td>
+          <input type="text" id="speciesName_window" name="speciesName_window" class="bordered-input" style="width: 67%;" placeholder="e.g.: ASV-1 OR Engraulis; Scomber">
+      </td>
+    </tr>
+
+  <tr>
+        <td>&nbsp;&nbsp;&nbsp; or upload species/ASV list &ensp;</td>
+        <td>
+            <input type="file" name="list_speciesName_pulldown" method="post" style="WIDTH: 60%; HEIGHT: 30px; color: black; font-size: 16px; ">
+            <a href="static/ASVtables/list_speciesName_pulldown.txt" download="list_speciesName_pulldown.txt">Example</a>
+        </td>
+  </tr>
+
+
+
+ 
+    <!-- 
+    <tr>
+      <td>ASV detection criteria</td>
+      <td valign="top">
+        <select name="ASV_detection_criteria" style="WIDTH: 70%; HEIGHT: 30px; color: black; font-size: 18px; ">
+          <option value="1">&ge;1 reads (includ all ASVs)</option>
+          <option value="2">&ge;2 reads</option>
+          <option value="3">&ge;3 reads</option>
+          <option value="4">&ge;4 reads</option>  #selected
+          <option value="5">&ge;5 reads</option>
+          <option value="6">&ge;6 reads</option>
+          <option value="7">&ge;7 reads</option>
+          <option value="8">&ge;8 reads</option>
+          <option value="9">&ge;9 reads</option>
+          <option value="10">&ge;10 reads</option>
+          <option value="100">&ge;100 reads</option>
+          <option value="100">&ge;1000 reads</option>
+        </select>
+      </td>
+    </tr>
+    -->
+
+    <tr>
+      <td>Site name on map</td>
+      <td>
+        <select name="sitename_map" style="WIDTH: 70%; HEIGHT: 30px; color: black; font-size: 18px; ">
+          <option value="shown" selected>Shown</option>
+          <option value="not-shown">Not shown</option>
+        </select>
+      </td>
+    </tr>
+
+
+
+    <tr>
+      <td>ASV comparison criteria</td>
+      <td valign="top">
+        <select name="ASV_comparison_criateria" style="WIDTH: 70%; HEIGHT: 30px; color: black; font-size: 18px; ">
+          <option value="1" selected>&ge;1 sampling point (include all ASVs)</option>
+          <option value="2">&ge;2 sampling points</option>
+          <option value="3">&ge;3 sampling points</option>
+          <option value="4">&ge;4 sampling points</option>
+          <option value="5">&ge;5 sampling points</option>
+          <option value="6">&ge;6 sampling points</option>
+          <option value="7">&ge;7 sampling points</option>
+          <option value="8">&ge;8 sampling points</option>
+          <option value="9">&ge;9 sampling points</option>
+          <option value="10">&ge;10 sampling points</option>
+          <option value="11">&ge;11 sampling points</option>
+          <option value="12">&ge;12 sampling points</option>
+          <option value="13">&ge;13 sampling points</option>
+          <option value="14">&ge;14 sampling points</option>
+          <option value="15">&ge;15 sampling points</option>
+          <option value="16">&ge;16 sampling points</option>
+          <option value="17">&ge;17 sampling points</option>
+          <option value="18">&ge;18 sampling points</option>
+          <option value="19">&ge;19 sampling points</option>
+          <option value="20">&ge;20 sampling points</option>
+          <option value="20">&ge;20 sampling points</option>
+          <option value="21">&ge;21 sampling points</option>
+          <option value="22">&ge;22 sampling points</option>
+          <option value="23">&ge;23 sampling points</option>
+          <option value="24">&ge;24 sampling points</option>
+          <option value="25">&ge;25 sampling points</option>
+          <option value="26">&ge;26 sampling points</option>
+          <option value="27">&ge;27 sampling points</option>
+          <option value="28">&ge;28 sampling points</option>
+          <option value="29">&ge;29 sampling points</option>
+          <option value="30">&ge;30 sampling points</option>
+        </select>
+      </td>
+    </tr>
+
+    <tr>
+      <td>Distance method for composition comparison</td>
+      <td>
+        <select name="index_distance" style="WIDTH: 70%; HEIGHT: 30px; color: black; font-size: 18px; ">
+          <option value="jaccard" selected>Jaccard</option>
+          <option value="bray">Bray-Curtis</option>
+        </select>
+      </td>
+    </tr>
+
+    <tr>
+      <td>PDF file</td>
+      <td>
+        <select name="PDF_file" style="WIDTH: 70%; HEIGHT: 30px; color: black; font-size: 18px; ">
+          <option value="not-create" selected>Do not create</option>
+          <option value="create">Create</option>
+        </select>
+      </td>
+    </tr>
+
+  <!-- 
+  <tr>
+      <td width="35%">Negative controls <br>(use_control)</td>
+      <td width="65%" valign="top">
+        <select name="use_control" style="WIDTH: 70%; HEIGHT: 30px; color: black; font-size: 18px; ">
+          <option value="delete" selected>Delete</option>
+          <option value="not_delete">Keep</option>
+        </select>
+      </td>
+    </tr>
+    -->
+
+  <tr>
+    <td colspan="2">&nbsp;</td>
+  </tr>
+
+  <tr>
+    <td colspan="2"><hr></td>
+  </tr>
+
+
+<!-- ####### Cruise database #######-->
+  <tr>
+    <td colspan="2"><strong class="titleL">Species/ASV table</strong></td>
+  </tr>
+
+  <tr>
+        <td align="left" valign="top">Upload excel file &ensp;</td>
+        <td>
+            <input type="file" name="upload_file_excel" method="post" style="WIDTH: 400px; HEIGHT: 30px; color: black; font-size: 16px; ">
+        </td>
+  </tr>
+
+  <tr>
+    <td valign="top" colspan="2">
+      <table width="100%" border="0" class="Example-table">
+          <tr>
+            <td width="35%" valign="top">Example file</td>
+            <td width="10%" valign="top">.xlsx</td>
+            <td width="66%" valign="top">
+              <!-- <a href="static/ASVtables/Species_Miya22_Ex.xlsx" download="Species_Miya22_Ex.xlsx">Species_Miya22_Ex.xlsx</a> (<a href="https://mbmg.pensoft.net/article/80444/" target="_blank">link</a>), <br> -->
+              <a href="static/ASVtables/OTU_Closek19_Ex.xlsx">OTU_Closek19_Ex.xlsx</a> (<a href="https://www.frontiersin.org/journals/marine-science/articles/10.3389/fmars.2019.00732/full" target="_blank">link</a>), <br>
+              <a href="static/ASVtables/ASV_KH20-9_KH22-5_Ex.xlsx">ASV_KH20-9_KH22-5_Ex.xlsx</a>,<br>
+              <a href="static/ASVtables/ASV_KH22-5_Ex.xlsx">ASV_KH22-5_Ex.xlsx</a>,<br>
+              <a href="static/ASVtables/ASV_KH20-9_Ex.xlsx">ASV_KH20-9_Ex.xlsx</a>,
+            </td>
+            </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td valign="top">.csv</td>
+            <td valign="top"><a href="static/ASVtables/species_TEST.csv" download="species_TEST.csv">species_TEST.csv</a>,
+            </td>
+            </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td valign="top">.txt</td>
+            <td valign="top"><a href="static/ASVtables/List_Miya15Kuroshio.txt" download="List_Miya15Kuroshio.txt">List_Miya15Kuroshio.txt</a> (<a href="https://royalsocietypublishing.org/doi/10.1098/rsos.150088" target="_blank">link</a>)</td>
+            </tr>
+       </table> 
+
+    </td>
+  </tr>
+
+  </table></td>
+  </tr>
+
+  <tr>
+    <td align="lef">&ensp;&ensp;&ensp;and/or choose from the following:</td>
+  </tr>
+
+  <!-- 
+  <tr>
+    <td><input type="checkbox" id="btn_A1">Check all</td>
+  </tr>
+  -->
+
+
+<tr>
+  <td><table width="100%" border="0" class="ASV-table">
+  <!-- ################################ -->
+  <!-- #### Japanese archipelago -->
+
+  <tr bgcolor="gray">
+     <td align="center" width="22%"><font face="Arial" color="white">&nbsp;Sea area</font></td>
+     <td align="center" width="2%" ><input type="checkbox" id="btn_A1"></td>
+     <td align="center" width="10%"><font face="Arial" color="white">Habitat</font></td>
+     <td align="center" width="17%"><font face="Arial" color="white">Organism</font></td>
+     <td align="center" width="6%"><font face="Arial" color="white">Metabarcoding loci</font></td>
+     <td align="center" width="16%"><font face="Arial" color="white">Table</font></td>
+     <td align="center" width="12%"><font face="Arial" color="white">Cruise</font></td>
+     <td align="center" width="15%"><font face="Arial" color="white">Article</font></td>
+  </tr>
+
+  <tr>
+    <td colspan="8">&nbsp;</td>
+  </tr>
+
+  <tr>
+    <td colspan="8">Test</td>
+  </tr>
+
+  <tr>
+    <td align="left">&nbsp;&nbsp;&nbsp;Test</td>
+
+  <!-- ## Miya et al. ('22) -->
+    <td align="center"><input type="checkbox" name="list_cruiseNames" value="TEST-02" class="list" checked></td>
+    <td align="center">Ocean</td>
+    <td align="center">Fish</td>
+    <td align="center">mt12S</td>
+    <td align="center"><a href="static/ASVtables/TEST-02A.xlsx" download="TEST-02A.xlsx">OTU.xlsx</a></td>
+    <td align="center">&mdash;</td>
+    <td align="Center">TEST-02A</td>
+  </tr>
+
+  <tr>
+    <td colspan="8">&nbsp;</td>
+  </tr>
+
+  <tr>
+    <td colspan="8">Japan Archipelago</td>
+  </tr>
+
+  <tr>
+    <td align="left">&nbsp;&nbsp;&nbsp;<a href="https://www.google.com/maps/@35.30438,140.41454,9z" target="_blank">Boso Pen.</a></td>
+
+  <!-- ## Miya et al. ('22) -->
+    <td align="center"><input type="checkbox" name="list_cruiseNames" value="Miya22" class="list"></td>
+    <td align="center">Coast</td>
+    <td align="center">Fish</td>
+    <td align="center">mt12S</td>
+    <td align="center"><a href="static/ASVtables/Miya22.xlsx" download="Miya22.xlsx">Species.xlsx</a></td>
+    <td align="center">&mdash;</td>
+    <td align="Center"><a href="https://mbmg.pensoft.net/article/80444/" target="_blank">Miya22</a></td>
+  </tr>
+
+  <tr>
+    <td colspan="8">&nbsp;</td>
+  </tr>
+
+
+  <!-- ################################ -->
+  <!-- #### Kuroshio -->
+  <tr>
+    <td colspan="8">Kuroshio Current</td>
+  </tr>
+
+  <!-- ## KS18-05 -->
+  <tr>
+    <td align="left">&nbsp;&nbsp;&nbsp;<a href="https://www.google.com/maps?q=36.83,143.5&ll=36.83,143.5&spn=7,7" target="_blank">Extension</a></td>
+    <td align="center"><input type="checkbox" name="list_cruiseNames" value="KS18-05" class="list"></td>
+    <td align="center">Ocean</td>
+    <td align="center">Fish</td>
+    <td align="center">mt12S</td>
+    <td align="center">OTU.xlsx:<a href="static/ASVtables/KS18-5BQ1.xlsx" download="KS18-5BQ1.xlsx">1</a>, <a href="static/ASVtables/KS18-5C.xlsx" download="KS18-5C.xlsx">2</a></td>
+    <td align="center"><a href="https://opensci.aori.u-tokyo.ac.jp/cruise/tracks/KS-18-5-track.png" target="_blank">KS18-05</a> </td>
+    <td align="center"><a href="https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0273670" target="_blank">Yu22</a></td>
+  </tr>
+
+  <!-- ## KH20-9 This study -->
+  <tr>
+    <td align="left">&nbsp;&nbsp;&nbsp;<a href="https://www.google.com/maps/@32.5,135.5,7z" target="_blank">Axis</a></td>
+    <td align="center"><input type="checkbox" name="list_cruiseNames" value="KH20-9AB_qiime2" class="list"></td>
+    <td align="center">Ocean</td>
+    <td align="center">Fish</td>
+    <td align="center">mt12S</td>
+    <td align="center"><a href="static/ASVtables/KH20-9AB_qiime2.xlsx" download="KH20-9AB_qiime2.xlsx">ASV.xlsx</a></td>
+    <td align="center"><a href="https://opensci.aori.u-tokyo.ac.jp/cruise/tracks/KH-20-9-track.png" target="_blank">KH20-09</a></td>
+    <td align="center">Inoue,sub.</td>
+  </tr>
+
+  <!-- ## KH20-9, Wu et al. ('24)  -->
+  <tr>
+    <td align="left">&nbsp;</td>
+    <td align="center"><input type="checkbox" name="list_cruiseNames" value="Wu24v4" class="list"></td>
+    <td align="center">Ocean</td>
+    <td align="center">Dinoflagellate</td>
+    <td align="center">18S V4</td>
+    <td align="center"><a href="static/ASVtables/Wu24v4.xlsx" download="Wu24v4.xlsx">Species.xlsx</a></td>
+    <td align="center">KH20-09</td>
+    <td align="center"><a href="https://www.nature.com/articles/s41598-024-66912-2" target="_blank">Wu24</a></td>
+  </tr>
+
+  <!-- ## KH22-5 This study -->
+  <tr>
+    <td align="left">&nbsp;&nbsp;&nbsp;Tokara Str.</td>
+    <td align="center"><input type="checkbox" name="list_cruiseNames" value="KH22-5" class="list"></td>
+    <td align="center">Ocean</td>
+    <td align="center">Fish</td>
+    <td align="center">mt12S</td>
+    <td align="center"><a href="static/ASVtables/KH22-5.xlsx" download="KH22-5.xlsx">ASV.xlsx</a></td>
+    <td align="center"><a href="https://opensci.aori.u-tokyo.ac.jp/cruise/tracks/KH-22-5-track.png" target="_blank">KH22-5</a></td>
+    <td align="center">Inoue,sub.</td>
+  </tr>
+
+  <tr>
+    <td colspan="8">&nbsp;</td>
+  </tr>
+
+  <!-- ################################ -->
+  <!-- #### Okinawa -->
+  <tr>
+    <td colspan="8">Okinawa</td>
+  </tr>
+
+  <!-- ## Shinzato et al. ('21) -->
+  <tr>
+    <td align="left">&nbsp;&nbsp;&nbsp;<a href="https://www.google.com/maps/@26.5167216,127.6595286,9z?hl=en" target="_blank">Okinawa Is.</a></td>
+    <td align="center"><input type="checkbox" name="list_cruiseNames" value="Nishitsuji23" class="list"></td>
+    <td align="center">Reef</td>
+    <td align="center">Coral</td>
+    <td align="center">mt12S</td>
+    <td align="center"><a href="static/ASVtables/Nishitsuji23.xlsx" download="Nishitsuji23.xlsx">Genus.xlsx</a></td>
+    <td align="center">&mdash;</td>
+    <td align="center"><a href="https://royalsocietypublishing.org/doi/10.1098/rspb.2023.0026" target="_blank">Nishitsuji23</a></td>
+  </tr>
+
+
+  <!-- ## Shinzato et al. ('21) -->
+  <tr>
+    <td align="left">&nbsp;&nbsp;&nbsp;<a href="https://www.google.com/maps?q=Bise,+Okinawa+Island" target="_blank">Bise</a></td>
+    <td align="center"><input type="checkbox" name="list_cruiseNames" value="Shinzato21" class="list"></td>
+    <td align="center">Reef</td>
+    <td align="center">Coral</td>
+    <td align="center">mt12S</td>
+    <td align="center"><a href="static/ASVtables/Shinzato21.xlsx" download="Shinzato21.xlsx">Genus.xlsx</a></td>
+    <td align="center">&mdash;</td>
+    <td align="center"><a href="https://www.frontiersin.org/journals/marine-science/articles/10.3389/fmars.2021.758207/full" target="_blank">Shinzato21</a></td>
+  </tr>
+
+
+  <!-- ## Oka et al. ('20) -->
+  <tr>
+    <td align="left">&nbsp;</td>
+    <td align="center"><input type="checkbox" name="list_cruiseNames" value="Oka20" class="list"></td>
+    <td align="center">Reef</td>
+    <td align="center">Fish</td>
+    <td align="center">mt12S</td>
+    <td align="center"><a href="static/ASVtables/Oka20.xlsx" download="Oka20.xlsx">Species.xlsx</a></td>
+    <td align="center">&mdash;</td>
+    <td align="center"><a href="https://onlinelibrary.wiley.com/doi/full/10.1002/edn3.132" target="_blank">Oka20</a></td>
+  </tr>
+
+  <tr>
+    <td colspan="8">&nbsp;</td>
+  </tr>
+
+  <tr>
+    <td colspan="8">Tsushima Current</td>
+  </tr>
+
+  <!-- ## Kim et al. ('22) -->
+  <tr>
+    <td colspan="8">&nbsp;&nbsp;&nbsp;<a href="https://www.google.com/maps/@34.5499118,128.8761389,114326m/data=!3m1!1e3?entry=ttu&g_ep=EgoyMDI1MDMzMS4wIKXMDSoASAFQAw%3D%3D" target="_blank">Korea Str.</a></td>
+  </tr>
+  <tr>
+    <td align="left">&nbsp;</td>
+    <td align="center"><input type="checkbox" name="list_cruiseNames" value="Kim22" class="list"></td>
+    <td align="center">Ocean</td>
+    <td align="center">Fish</td>
+    <td align="center">mt12S</td>
+    <td align="center"><a href="static/ASVtables/Kim22.xlsx" target="_blank">Species.xlsx</a></td>
+    <td align="center">&mdash;</td>
+    <td align="center"><a href="https://www.frontiersin.org/journals/marine-science/articles/10.3389/fmars.2022.788380/full" target="_blank">Kim22</a></td>
+  </tr>
+
+  <tr>
+    <td colspan="8">&nbsp;</td>
+  </tr>
+
+
+  <!-- ## Kawakami et al. ('23) -->
+  <tr>
+    <td colspan="8">NW pacific and <a href="https://www.google.com/maps/@64.2200266,171.0236965,5z" target="_blank">Chukchi Sea</a></td>
+  </tr>
+  <tr>
+    <td align="left">&nbsp;</td>
+    <td align="center"><input type="checkbox" name="list_cruiseNames" value="Kawakami23" class="list"></td>
+    <td align="center">Ocean</td>
+    <td align="center">Fish</td>
+    <td align="center">mt12S</td>
+    <td align="center"><a href="static/ASVtables/Kawakami23.xlsx" target="_blank">Species.xlsx</a></td>
+    <td align="center">&mdash;</td>
+    <td align="center"><a href="https://onlinelibrary.wiley.com/doi/10.1002/ece3.9921" target="_blank">Kawakami23</a></td>
+  </tr>
+
+  <tr>
+    <td colspan="8">&nbsp;</td>
+  </tr>
+
+  <!-- ## Dukan et al. ('24) -->
+  <tr>
+    <td colspan="8">North Sea</td>
+  </tr>
+  <tr>
+    <td align="left">&nbsp;&nbsp;&nbsp;<a href="https://www.google.com/maps/@51.49817,2.84879,10z" target="_blank">Belgian side</a></td>
+    <td align="center"><input type="checkbox" name="list_cruiseNames" value="Dukan24" class="list"></td>
+    <td align="center">Coast</td>
+    <td align="center">Fish</td>
+    <td align="center">mt12S</td>
+    <td align="center"><a href="static/ASVtables/Dukan24.xlsx" download="Dukan24.xlsx">Species.xlsx</a></td>
+    <td align="center">&mdash;</td>
+    <td align="center"><a href="https://www.nature.com/articles/s41598-024-66912-2" target="_blank">Dukan24</a></td>
+  </tr>
+
+  <tr>
+    <td colspan="8">&nbsp;</td>
+  </tr>
+
+  <tr>
+    <td colspan="8">Central Pacific</td>
+  </tr>
+
+  <!-- ## Lafferty et al. ('20) -->
+  <tr>
+    <td align="left"  >&nbsp;&nbsp;&nbsp;<a href="https://www.google.com/maps/@5.881973,-162.075645,10z" target="_blank">Palmyra Atoll</a></td>
+    <td align="center"><input type="checkbox" name="list_cruiseNames" value="Lafferty20" class="list"></td>
+    <td align="center">Reef</td>
+    <td align="center">Fish</td>
+    <td align="center">18S,mt12S,CO1</td>
+    <td align="center"><a href="static/ASVtables/Lafferty20.xlsx" download="Lafferty20.xlsx">OTU.xlsx</a></td>
+    <td align="center">&mdash;</td>
+    <td align="center"><a href="https://onlinelibrary.wiley.com/doi/abs/10.1111/jfb.14403" target="_blank">Lafferty20</a></td>
+  </tr>
+
+  <tr>
+    <td colspan="8">&nbsp;</td>
+  </tr>
+
+  <!-- ## Bessey et al. ('20) -->
+  <tr>
+    <td colspan="8">Timor Sea </td>
+  <tr>
+    <td align="left">&nbsp;&nbsp;&nbsp;<a href="https://www.google.com/maps/@-14.1,123.55,10z" target="_blank">Browse Island</a></td>
+    <td align="center"><input type="checkbox" name="list_cruiseNames" value="Bessey20" class="list"></td>
+    <td align="center">Reef</td>
+    <td align="center">Fish</td>
+    <td align="center">mt16S</td>
+    <td align="center"><a href="static/ASVtables/Bessey20.xlsx" download="Bessey20.xlsx">Species.xlsx</a></td>
+    <td align="center">&mdash;</td>
+    <td align="center"><a href="https://onlinelibrary.wiley.com/doi/full/10.1002/edn3.74" target="_blank">Bessey20</a></td>
+  </tr>
+
+  <tr>
+    <td colspan="8">&nbsp;</td>
+  </tr>
+
+  <tr>
+    <td colspan="8">Eastern Pacific</td>
+  </tr>
+
+  <!-- ## Closek et al. ('19) -->
+  <tr>
+    <td align="left">&nbsp;&nbsp;&nbsp;<a href="https://www.google.com/maps/search/National+Marine+Sanctuaries+located+in+the+California+Current/@35.2335803,-122.490628,682517m/data=!3m2!1e3!4b1?entry=ttu&g_ep=EgoyMDI1MDMyNC4wIKXMDSoJLDEwMjExNDUzSAFQAw%3D%3D" target="_blank">Monterey Bay</a></td>
+    <td align="center"><input type="checkbox" name="list_cruiseNames" value="Closek19" class="list"></td>
+    <td align="center">Coast</td>
+    <td align="center">Fish</td>
+    <td align="center">mt12S</td>
+    <td align="center"><a href="static/ASVtables/Closek19.xlsx" download="Closek19.xlsx">Species.xlsx</a></td>
+    <td align="center">&mdash;</td>
+    <td align="center"><a href="https://www.frontiersin.org/journals/marine-science/articles/10.3389/fmars.2019.00732/full" target="_blank">Closek19</a></td>
+  </tr>
+
+  <!-- 
+  <tr>
+    <td colspan="8">&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="8">Southeastern Atlantic</td>
+  </tr>
+
+  <tr>
+    <td align="center"><input type="checkbox" name="list_cruiseNames" value="Sales21" class="list"></td>
+    <td align="center">&nbsp;</td>
+    <td align="center">Rv.mouth</td>
+    <td align="center">Fish</td>
+    <td align="center">12S</td>
+    <td align="center">Species_fw.xlsx</td>
+    <td align="center">&mdash;</td>
+    <td align="center"><a href="https://pubmed.ncbi.nlm.nih.gov/32898783/" target="_blank">Sales21</a></td>
+  </tr>
+  -->
+
+
+
+  </table></td>
+</tr>
+
+
+
+
+
+  <tr>
+    <td><hr></td>
+  </tr>
+  
+
+  <tr><td><table width="100%" border="0" cellspacing="2" cellpadding="0">
+    <tr>
+      <td width="15%" align="left" valign="bottom" class="English">13 Apr. 2025 </td>
+      <td align="center">jinoueATg.ecc.u-tokyo.ac.jp</td>
+      <td width="15%" align="right" valign="bottom" class="English">ver.1.0.0</td>
+     </tr>
+  </table></td></tr> <!-- Email table End -->
+
+
+
+</table>
+</form><!-- my_form table End -->
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const thinStripesPath = "/oednamap/static/ThinStripes.gif";
+    const form = document.getElementById('my_form');
+    form.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        const resultDiv = document.getElementById('result-area');
+
+        // 解析中GIFを表示
+        //resultDiv.innerHTML = '<img src="/oednamap/static/ThinStripes.gif" alt="Loading..." class="loader-gif">';
+        resultDiv.innerHTML = `<img src="${thinStripesPath}" alt="Loading..." class="loader-gif">`;
+
+
+        const formData = new FormData(form);
+
+        fetch('/oednamap/submit', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("HTTP error " + response.status);
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log(data);
+            const resultDiv = document.getElementById('result-area');
+
+            // テキストノードとリンク要素を個別に作成
+            const spanText = document.createTextNode('Finished: ');
+            const link = document.createElement('a');
+            link.href = data.result_url;
+            link.textContent = data.dirname_rand;
+            link.target = '_blank';
+
+            resultDiv.innerHTML = '';
+            resultDiv.appendChild(spanText);
+            resultDiv.appendChild(link);
+            resultDiv.append(`　${data.time} seconds.`);
+        })
+        .catch(error => {
+            resultDiv.innerHTML = 'An error occurred: ' + error;
+        });
+    });
+});
+</script>
+
+</body>
+
+</html>

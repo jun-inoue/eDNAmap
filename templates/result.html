@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <title>Ocean eDNA map：{{ result_id }}</title>
+    <style>
+        body { font-size: 130%; }
+        .blackBG { background-color: #000000; color: white; }
+        .redBG { background-color: #FF0000; color: white; }
+        hr { width: 800px; margin-left: 0; }
+        /* table { width: 1000px; border: 0; } */
+    </style>
+</head>
+<body>
+<pre>
+<h1 style="font-size: 130%;">
+Ocean eDNA map <span style="font-size: 80%; color: gray;">(ver.1.0.0)</span>
+</h1>
+<b>Download:</b> <a href="/oednamap/results/{{ dirname_rand }}/result{{ dirName_count }}_oeDNAmap.zip">result{{ dirName_count }}_oeDNAmap.zip</a>
+
+<hr>
+<table border="0">
+    <tr>
+        <td><b>### Setting</b></td>
+        <td>Dummy</td>
+    </tr>
+    <tr>
+        <td><b>Cruise/Research</b></td>
+        <td><b>: </b>{{ list_cruiseNames | join(', ') }}</td>
+    </tr>
+    <tr>
+        <td valign="top"><b>Search species/keywords</b></td>
+        <td style="white-space: pre-wrap;"><b>: </b>{{ list_speciesName_pulldown | safe }}</td>
+    </tr>
+</table>
+
+<hr>
+<b>### Sampling site map</b><br>
+{% if map_image %}
+<img src="{{ map_image }}" width="841" height="593" alt="Sampling Map"><br>
+<div style="white-space: pre-wrap;">Red sites: {{ list_speciesName_pulldown | safe }}, detected</div>
+{% else %}
+    No geographic coordinates.
+{% endif %}
+
+
+<b>### Detection depth</b><br>
+<!-- depth_image_filename = "210_pheatmap_depth.png" -->
+{% if depth_image %}
+    <img src="{{ depth_image }}" width="700" alt="Depth Heatmap"><br>
+    Color-coded by detection frequency.
+{% else %}
+    Not estimated.
+{% endif %}
+
+<hr>
+<b>### Comparing Species/ASV composition</b>
+<table border="0">
+    <tr><td><b>Community data</b></td><td><b>: </b>{{ list_cruiseNames | join(', ') }}</td></tr>
+    <!-- <tr><td><b>ASV detection criteria</b></td><td><b>: </b>≥ {{ asv_detection_criteria }} reads</td></tr> 
+    <tr><td><b>&nbsp;&nbsp;&nbsp;Removed species</b></td><td><b>: </b>{{ len_list_speices_fewTimeDetect }} spp.</td></tr> -->
+    <tr><td><b>ASV comparison criteria</b></td><td><b>: </b>≥ {{ ASV_comparison_criteria }} sampling points</td></tr>
+    <tr><td><b>&nbsp;&nbsp;&nbsp;Removed sampling point</b></td><td><b>: </b>{{ len_list_sampleID_all0 }}</td></tr>
+    <tr><td colspan="2"><b>&nbsp;</td></tr>
+
+    <tr><td><b>200_communityData4R.csv</b></td><td><b>: </b>{{ df_4_R_reads | length }} points, {{ df_4_R_reads.columns | length }} spp.</td></tr>
+    
+    <tr><td><b>200_communityData4R_station.csv</b></td><td><b>: </b>{{ df_4_R_reads_station | length }} stations, {{ df_4_R_reads_station.columns | length }} spp.</td></tr>
+</table>
+
+
+{% if df_4_R_reads | length > 1 %}
+<b>## <a href="https://www.rdocumentation.org/packages/pheatmap/versions/1.0.12/topics/pheatmap" target="_blank">pheatmap</a></b><br>
+
+<b># Sampling point</b><br>
+{% if pheatmap_image %}
+  <img src="{{ pheatmap_image }}" width="700" alt="pheatmap"><br>
+{% else %}
+  Not estimated.<br>
+{% endif %}
+
+<b># Sampling station</b><br>
+{% if df_4_R_reads | length != df_4_R_reads_station | length and pheatmap_station_image %}
+  <img src="{{ pheatmap_station_image }}" width="700" alt="pheatmap_station"><br>
+{% else %}
+  Not estimated.<br>
+{% endif %}
+
+<b>## <a href="https://cran.r-project.org/web/packages/vegan/vignettes/intro-vegan.pdf" target="_blank">nMDS</a></b><br>
+
+<b># Sampling point</b><br>
+{% if nmds_image %}
+  <img src="{{ nmds_image }}" width="700" alt="nMDS"><br>
+{% else %}
+  Not estimated.<br>
+{% endif %}
+
+<b># Sampling station</b><br>
+{% if df_4_R_reads | length != df_4_R_reads_station | length and nmds_station_image %}
+  <img src="{{ nmds_station_image }}" width="700" alt="nMDS_station"><br>
+{% else %}
+  Not estimated.<br>
+{% endif %}
+
+<!-- hclust -->
+<b>## <a href="https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/hclust" target="_blank">hclust</a></b><br>
+
+<b># Sampling point</b><br>
+{% if hclust_image %}
+  <img src="{{ hclust_image }}" width="700" alt="hclust"><br>
+{% else %}
+  Not estimated.<br>
+{% endif %}
+
+<b># Sampling station</b><br>
+{% if df_4_R_reads | length != df_4_R_reads_station | length and hclust_station_image %}
+  <img src="{{ hclust_station_image }}" width="700" alt="hclust_station"><br>
+{% else %}
+  Not estimated.<br>
+{% endif %}
+{% else %}
+<p>pheatmap/nMDS/hclust analyses were not conducted.<br>
+The remaining number of water sampling points were ≤2.</p>
+{% endif %}
+
+
+
+<hr>
+<b>### Species list</b>
+<table border="0" bordercolor="#FFFFFF" bgcolor="#aaaaaa">
+<tr><td>
+<table bgcolor="white">
+
+{% for entry in species_list %}
+    <tr bgcolor="#aaaaaa">
+        <td><font color="#FFFFFF"><b>Sample ID</b></font></td>
+        <td colspan="2"><font color="#FFFFFF">{{ entry.sample_id }}</font></td>
+    </tr>
+    
+    <tr>
+        <td width="100px"><b>Cruise:</b></td>
+        <td width="100px">{{ entry.cruise }}</td>
+        <td width="100px">&nbsp;</td>
+    </tr>
+    
+    <tr>
+        <td><b>Station:</b></td>
+        <td>{{ entry.station }}</td>
+        <td>&nbsp;</td>
+    </tr>
+    
+    <tr>
+        <td><b>Coordinates:</b></td>
+        <td>{{ entry.latitude }}'N</td>
+        <td>{{ entry.longitude }}'E</td>
+    </tr>
+    
+    <tr>
+        <td><b>Depth:</b></td>
+        <td>{{ entry.depth }}m</td>
+        <td>&nbsp;</td>
+    </tr>
+    
+    <tr>
+        <td><b>Date:</b></td>
+        <td>{{ entry.date }}</td>
+        <td>&nbsp;</td>
+    </tr>
+    <tr>
+        <td colspan="3"><hr></td>
+    </tr>
+    
+    <tr>
+        <td align="center"><b>Detected species</b></td>
+        <td align="center"><b>Common name</b></td>
+        <td align="center"><b>Read</b></td>
+    </tr>
+    
+        {% for species in entry.detected_species %}
+            <tr>
+                <td align="center" valign="top">{{ species.name }}</td>
+                <td align="center" valign="top">{{ species.common_name }}</td>
+                <td align="center" valign="top">{{ species.reads }}</td>
+            </tr>
+        {% endfor %} {# End of for loop over entry.detected_species #}
+    <tr>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+    </tr>
+{% endfor %} {# End of for loop over species_list #}
+
+</table>
+</td></tr></table>
+
+
+<hr>
+<table border="0">
+<tr>
+    <td colspan="2"><b>### Dependencies</b></td>
+</tr>
+<tr>
+    <td><b>Mapping</b></td>
+    <td><b>: </b><a href="https://fish-evol.org/GMT_ji1.html" target="_blank">The Generic Mapping Tools, Version 6.5.0</a></td>
+</tr>
+<tr>
+    <td><b>Species/ASV table comparison</b></td>
+    <td><b>: </b><a href="https://www.rdocumentation.org/packages/pheatmap/versions/1.0.12/topics/pheatmap" target="_blank">pheatmap, Version 1.0.12</a></td>
+</tr>
+<tr>
+    <td>&nbsp;</td>
+    <td><b>: </b><a href="https://www.rdocumentation.org/packages/pheatmap/versions/1.0.12/topics/pheatmap" target="_blank">vegan, Version 2.6.8</a></td>
+</tr>
+<tr>
+    <td><b>Translation database</b></td>
+    <td><b>: </b><a href="https://www.ncbi.nlm.nih.gov/books/NBK179288/" target="_blank">EDirect</a></td>
+</tr>
+<tr>
+    <td>&nbsp;</td>
+    <td><b>: </b><a href="https://github.com/rogotoh/PMiFish" target="_blank">PMifish</a></td>
+</tr>
+</table>
+
+</pre>
+</body>
+</html>
