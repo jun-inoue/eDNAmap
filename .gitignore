@@ -16,6 +16,7 @@ results/
 old/
 
 # files
+wsgi.ini
 gmt.history
 000rsync.sh
 static/ASVtables/000scp.sh
