@@ -1,5 +1,50 @@
+# macOS system files
+.DS_Store
+*/.DS_Store
+static/ASVtables/.DS_Store
+
+# Temporary files
+*.swp
+*.swo
+*~
+*.tmp
+*.bak
+
+
 # Ignore results directory
 results/
+old/
+
+# files
+gmt.history
+000rsync.sh
+static/ASVtables/000scp.sh
+static/ASVtables/ASV_KH20-9_Ex.xlsx
+static/ASVtables/ASV_KH20-9_KH22-5_Ex.xlsx
+static/ASVtables/ASV_KH22-5_Ex.xlsx
+static/ASVtables/Bessey20.xlsx
+static/ASVtables/Closek19.xlsx
+static/ASVtables/Dukan24.xlsx
+static/ASVtables/KH20-9AB_qiime2.xlsx
+static/ASVtables/KH22-5.xlsx
+static/ASVtables/KS18-5BQ1.xlsx
+static/ASVtables/KS18-5C.xlsx
+static/ASVtables/Kawakami23.xlsx
+static/ASVtables/Kim22.xlsx
+static/ASVtables/Lafferty20.xlsx
+static/ASVtables/List_Miya15Kuroshio.txt
+#static/ASVtables/Miya22.xlsx
+static/ASVtables/Nishitsuji23.xlsx
+static/ASVtables/OTU_Closek19_Ex.xlsx
+static/ASVtables/Oka20.xlsx
+static/ASVtables/Shinzato21.xlsx
+static/ASVtables/Sname_Cname_15477.txt
+static/ASVtables/TEST-02A.xlsx
+static/ASVtables/Wu24v4.xlsx
+#static/ASVtables/list_speciesName_pulldown.txt
+static/ASVtables/species_TEST.csv
+#static/ThinStripes.gif
+#static/main.css
 
 # Ignore Python cache files
 __pycache__/

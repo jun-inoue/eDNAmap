@@ -187,7 +187,7 @@ def load_oednamap_results(eachDirAddress, list_dfs_cruises, database_address):
     #abort(400)
 
     species_list = []
-    print("### making new species_list  ###")
+    #print("### making new species_list  ###")
     for rec in list_dfs_cruises:
         cruiseName = rec[0]
         name_excelFile = rec[1]
@@ -195,8 +195,8 @@ def load_oednamap_results(eachDirAddress, list_dfs_cruises, database_address):
         binary_or_not = rec[3]
         df_reads = dict_df["reads"]
         df_envis = dict_df["environments"]
-        print("cruiseName", cruiseName)
-        print("binary_or_not", binary_or_not)
+        #print("cruiseName", cruiseName)
+        #print("binary_or_not", binary_or_not)
 
         for sample_id in df_reads.columns:
 
@@ -228,11 +228,11 @@ def load_oednamap_results(eachDirAddress, list_dfs_cruises, database_address):
                     species = species.replace("/", f"{line_break}/")
                 if "-x-" in species:
                     species = species.replace("-x-", f"{line_break}-x-")
-                print("species", species)
+                #print("species", species)
                 
                 if "\n" in species:
                     list_species = species.split("\n")
-                    print("list_species", list_species)
+                    #print("list_species", list_species)
                     commonName_hit = dic_scname2commonName.get(list_species[0], "NA").rstrip("\n")
                 else:
                     commonName_hit = dic_scname2commonName.get(species, "NA").rstrip("\n")

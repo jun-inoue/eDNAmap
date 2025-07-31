@@ -4,20 +4,15 @@ A Web Tool/Database for Metabarcodes in the Northwestern Pacific and Beyond
 
 ---
 
-## Analysis site   
+## Analysis site
 <!-- CGI: Fast   -->
+yurai (CGI)   
 [https://yurai.aori.u-tokyo.ac.jp/eDNAmap](https://yurai.aori.u-tokyo.ac.jp/eDNAmap)   
-(from 24 Mar. 2025)   
+(Since 24 Mar. 2025)   
 
-<!-- Flask   
-[https://orthoscope.jp/eDNAmap](https://orthoscope.jp/ednamap)   
-(from 23 July 2025)   
--->
-
-<!-- 
-[https://oedna.opensci.aori.u-tokyo.ac.jp/eDNAmap/index044.html](https://oedna.opensci.aori.u-tokyo.ac.jp/eDNAmap/index044.html)   
-(from 24 April. 2025)   
--->
+viento (FLASK)   
+[https://orthoscope.jp/eDNAmap](https://orthoscope.jp/eDNAmap)   
+(Since 23 July 2025)   
 
 ---
 ## Instruction　　　

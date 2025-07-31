@@ -44,8 +44,8 @@ else:
         file_grd = file_grd_home
     else:
         raise ValueError(
-            f"Error: The file '{file_grd}' was not found in the current directory or your home directory.<br>"
-            f"Execution stopped.<br>"
+            f"Error: The file '{file_grd}' was not found in the current directory or your home directory.\n"
+            f"Execution stopped."
         )
 
 dics_cruiseName_excelFiles = OrderedDict()
@@ -1206,7 +1206,7 @@ def extract_list_names_reads_percents_OTUs(list_species_reads):
 
 
 def make_latLongFile_sites_including_pulldownedSpecies_gmt_pd(outFileName, eachDirAddress, list_dfs_cruises):
-    print("### make_latLongFile_sites_including_pulldownedSpecies_gmt_pd() ###")
+    #print("### make_latLongFile_sites_including_pulldownedSpecies_gmt_pd() ###")
     #print("outFileName", outFileName, "<br>")   # 150_lat_lon_red_selected.txt
     
     list_speciesName_pulldown = get_session_param('list_speciesName_pulldown')
@@ -1525,7 +1525,7 @@ def calculate_center_dist(df):
 
 
 def plot_results_by_gmt(list_dfs_cruises, eachDirAddress):
-    print("### plot_results_by_gmt() ###")
+    #print("### plot_results_by_gmt() ###")
     
     sitename_map = get_session_param('sitename_map')
 
@@ -2067,6 +2067,11 @@ def turn_matrix1(matrix):
 
 def pheatmap_R(eachDirAddress, infile4pheatmap, outfile):
     #print("### pheatmap_R() ###<br>")
+
+    # Rscriptの存在確認
+    if shutil.which("Rscript") is None:
+        raise EnvironmentError("Error in pheatmap_R(): 'Rscript' is not found in your system PATH. Please install R and ensure 'Rscript' is accessible.")
+
     #print("dir_scripts_oeDNAmap", dir_scripts_oeDNAmap, "<br>")
     #print("eachDirAddress", eachDirAddress, "<br>")
     #print("infile4pheatmap", infile4pheatmap, "<br>")
@@ -2075,9 +2080,9 @@ def pheatmap_R(eachDirAddress, infile4pheatmap, outfile):
     
     index_distance = get_session_param('index_distance')
     
-    pheatLine = dir_scripts_oeDNAmap + "Rscript " + dir_scripts_oeDNAmap + "pheatmap.R " + eachDirAddress + infile4pheatmap + " " + index_distance + " " + eachDirAddress + outfile + ".pdf > " + eachDirAddress + outfile + "_log.txt"
-    #pheatLine = f"{dir_scripts_oeDNAmap}Rscript {dir_scripts_oeDNAmap}pheatmap.R {eachDirAddress}{infile4pheatmap} {index_distance} {eachDirAddress}{outfile}.pdf > {eachDirAddress}{outfile}_log.txt"
-    #print ("pheatLine: ", pheatLine, "<br>")
+    #pheatLine = dir_scripts_oeDNAmap + "Rscript " + dir_scripts_oeDNAmap + "pheatmap.R " + eachDirAddress + infile4pheatmap + " " + index_distance + " " + eachDirAddress + outfile + ".pdf > " + eachDirAddress + outfile + "_log.txt"
+    pheatLine = f"Rscript {dir_scripts_oeDNAmap}pheatmap.R {eachDirAddress}{infile4pheatmap} {index_distance} {eachDirAddress}{outfile}.pdf > {eachDirAddress}{outfile}_log.txt"
+    #print(f"pheatLine: {pheatLine}<br>")
     #exit()
     subprocess.call(pheatLine, shell=True)
 
@@ -2088,7 +2093,13 @@ def pheatmap_R(eachDirAddress, infile4pheatmap, outfile):
 
 def pheatmap_depth_R(infile4pheatmap, eachDirAddress, outfile):
     #print("### pheatmap_R() ###<br>")
-    pheatLine = dir_scripts_oeDNAmap + "Rscript " + dir_scripts_oeDNAmap + "pheatmap.R " + eachDirAddress + infile4pheatmap + " bray " + eachDirAddress + outfile + ".pdf > " + eachDirAddress + outfile + "_log.txt"
+
+    # Rscriptの存在確認
+    if shutil.which("Rscript") is None:
+        raise EnvironmentError("Error in pheatmap_depth_R(): 'Rscript' is not found in your system PATH. Please install R and ensure 'Rscript' is accessible.")
+
+    #pheatLine = dir_scripts_oeDNAmap + "Rscript " + dir_scripts_oeDNAmap + "pheatmap.R " + eachDirAddress + infile4pheatmap + " bray " + eachDirAddress + outfile + ".pdf > " + eachDirAddress + outfile + "_log.txt"
+    pheatLine = f"Rscript {dir_scripts_oeDNAmap}pheatmap.R {eachDirAddress}{infile4pheatmap} bray {eachDirAddress}{outfile}.pdf > {eachDirAddress}{outfile}_log.txt"
     #print ("pheatLine: ", pheatLine, "<br>")
     #exit()
     subprocess.call(pheatLine, shell=True)
@@ -2100,9 +2111,13 @@ def pheatmap_depth_R(infile4pheatmap, eachDirAddress, outfile):
 
 def hclust_R(infile4pheatmap, eachDirAddress, outfile):
 
+    if shutil.which("Rscript") is None:
+        raise EnvironmentError("Error in hclust_R(): 'Rscript' is not found in your system PATH.")
+
     index_distance = get_session_param('index_distance')
 
-    hclustLine = dir_scripts_oeDNAmap + "Rscript " + dir_scripts_oeDNAmap + "hclust.R " + eachDirAddress + infile4pheatmap + " " + index_distance + " " + eachDirAddress + outfile + ".pdf > " + eachDirAddress + outfile + "_log.txt"
+    #hclustLine = dir_scripts_oeDNAmap + "Rscript " + dir_scripts_oeDNAmap + "hclust.R " + eachDirAddress + infile4pheatmap + " " + index_distance + " " + eachDirAddress + outfile + ".pdf > " + eachDirAddress + outfile + "_log.txt"
+    hclustLine = f"Rscript {dir_scripts_oeDNAmap}hclust.R {eachDirAddress}{infile4pheatmap} {index_distance} {eachDirAddress}{outfile}.pdf > {eachDirAddress}{outfile}_log.txt"
     #print ("hclustLine: ", hclustLine, "<br>")
     #exit()
     subprocess.call(hclustLine, shell=True)
@@ -2115,9 +2130,13 @@ def nMDS_R(infile4pheatmap, eachDirAddress, outfile):
     #print("### nMDS_R ###<br>")
     #print("infile4pheatmap", infile4pheatmap, "<br>")
 
+    if shutil.which("Rscript") is None:
+        raise EnvironmentError("Error in nMDS_R(): 'Rscript' is not found in your system PATH.")
+
     index_distance = get_session_param('index_distance')
 
-    nMDS_line = dir_scripts_oeDNAmap + "Rscript " + dir_scripts_oeDNAmap + "nMDS.R " + eachDirAddress + infile4pheatmap + " " + index_distance + " " + eachDirAddress + outfile + ".pdf > " + eachDirAddress + outfile + "_log.txt"
+    #nMDS_line = dir_scripts_oeDNAmap + "Rscript " + dir_scripts_oeDNAmap + "nMDS.R " + eachDirAddress + infile4pheatmap + " " + index_distance + " " + eachDirAddress + outfile + ".pdf > " + eachDirAddress + outfile + "_log.txt"
+    nMDS_line = f"Rscript {dir_scripts_oeDNAmap}nMDS.R {eachDirAddress}{infile4pheatmap} {index_distance} {eachDirAddress}{outfile}.pdf > {eachDirAddress}{outfile}_log.txt"
     #print ("nMDS_line: ", nMDS_line, "<br>")
     #exit()
     subprocess.call(nMDS_line, shell=True)
@@ -2404,7 +2423,7 @@ def compression(eachDirAddress, dirName_count, list_cruiseNames, input_file_user
 
     zipfiles = glob.glob(resDirName + '/*')
     #fzip = zipfile.ZipFile(resDirName + '_oeDNAmap.zip', 'w', zipfile.ZIP_DEFLATED)
-    fzip = zipfile.ZipFile(eachDirAddress + 'result' + str(dirName_count) + '_oeDNAmap.zip', 'w', zipfile.ZIP_DEFLATED)
+    fzip = zipfile.ZipFile(eachDirAddress + 'result' + str(dirName_count) + '_eDNAmap.zip', 'w', zipfile.ZIP_DEFLATED)
     #print("#### fzip", fzip)
     for file in zipfiles:
         fzip.write(file, os.path.basename(file))

@@ -26,7 +26,7 @@ database_address = os.getenv("DATABASE_ADDRESS", "static/ASVtables/")
 #filePass_English2Japanese, filePass_Sname2Cname = initialize_file_paths(database_address)
 
 #app = Flask(__name__)
-app = Flask(__name__, static_url_path='/oednamap/static')
+app = Flask(__name__, static_url_path='/eDNAmap/static')
 
 
 import redis
@@ -46,23 +46,30 @@ Session(app)
 app.secret_key = os.getenv('FLASK_SECRET_KEY', 'fallback_dev_key')
 os.makedirs(RESULT_FOLDER, exist_ok=True)
 
-@app.route('/oednamap/debug')
+@app.route('/ednamap')
+@app.route('/ednamap/')
+def redirect_to_eDNAmap():
+    return redirect('/eDNAmap', code=302)
+
+
+@app.route('/eDNAmap/debug')
 def debug():
     list_dfs_cruises = pickle.loads(session['list_dfs_cruises'])
     df_reads = list_dfs_cruises[0][2]["reads"]
     html_table = df_reads.head().to_html()
     return render_template("debug.html", table=html_table)
 
-@app.route('/oednamap', methods=['GET'])
+@app.route('/eDNAmap', methods=['GET'])
+@app.route('/eDNAmap/', methods=['GET'])
 def index():
     return render_template('index.html')
 
 
-@app.route('/oednamap/submit', methods=['POST'])
+@app.route('/eDNAmap/submit', methods=['POST'])
 def submit():
 
-    print("request.form:", request.form)
-    print("request.files:", request.files)
+    #print("request.form:", request.form)
+    #print("request.files:", request.files)
 
     #print("### submit() ###", flush=True)
 
@@ -254,7 +261,7 @@ def submit():
     # 結果のURLを返す
     #print("### return jsonify ###")
     return jsonify({
-        'result_url': f'/oednamap/results/{dirname_rand}/300_results.html',
+        'result_url': f'/eDNAmap/results/{dirname_rand}/300_results.html',
         'dirname_rand': dirname_rand,
         'time': elapsed_time
     })
@@ -262,18 +269,20 @@ def submit():
 
 
 # --- 静的ファイルの提供ルート ---
-@app.route('/oednamap/results/<path:filename>')
+@app.route('/eDNAmap/results/<path:filename>')
 def serve_result_file(filename):
     return send_from_directory(RESULT_FOLDER, filename)
 
 if __name__ == '__main__':
     #app.run(debug=True, use_reloader=False)
-    app.run(host='0.0.0.0', port=5001, debug=True, use_reloader=False)
+    app.run(host='0.0.0.0', port=5000, debug=True, use_reloader=False)
 
 # Ubuntu24.04
-# http://160.16.70.235:5000/oednamap
+# http://160.16.70.235:5000/eDNAmap
+# Ubunt24.04 viento
+# http://157.82.133.212:5000/eDNAmap
 # Mac OS
-# http://127.0.0.1:5001/oednamap
+# http://127.0.0.1:5001/eDNAmap
 # 途中でストップさせたい場合。
 # app.py
 # return jsonify({'debug': 'Stopped for inspection'}), 200
