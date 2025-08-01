@@ -29,6 +29,21 @@ The programming code is available from [Releases](https://github.com/jun-inoue/e
 Those scripts were confirmed to run on the Linux operating system with an Apache HTTP Server Server.   
 
 ---
+
+## Deployment and Maintenance
+
+### uWSGI Restart Script
+
+To restart the uWSGI server and clear Python cache files, use the provided script:   
+bash restart_uwsgi.sh
+This script performs the following steps:
+Deletes all .pyc files in the project directory.
+Stops uWSGI using the PID file (/tmp/eDNAmap.pid) if it exists.
+Kills any remaining uWSGI processes as a fallback.
+Restarts uWSGI using the wsgi.ini configuration file.
+Log output can be checked at /var/log/uwsgi/eDNAmap.log.
+
+---
 ## Citation
 Inoue, J. et al.   
 Ocean eDNA Map: A Metabarcoding Web Tool for Comparing Marine Biodiversity, with Special Reference to Teleost Fish. Manuscript submitted for publication.   
