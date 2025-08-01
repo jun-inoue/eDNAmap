@@ -3,7 +3,6 @@ from socket import gethostname
 from functools import reduce
 from collections import OrderedDict
 from utils.session_utils import load_param_from_session
-from utils.session_utils import load_param_from_session
 from utils.session_utils import get_session_param
 from flask import session
 from flask import abort
@@ -25,7 +24,7 @@ rscriptTMP = "Rscript"
 #    filePass_Sname2Cname = os.path.join(database_address, "Sname_Cname_15477.txt")
 #    return filePass_English2Japanese, filePass_Sname2Cname
 
-dir_scripts_oeDNAmap = "OEDNAMAPscripts043/"
+dir_scripts_oeDNAmap = "scripts/"
 
 
 #database_address = "ASVtables/"
@@ -1527,6 +1526,7 @@ def calculate_center_dist(df):
 def plot_results_by_gmt(list_dfs_cruises, eachDirAddress):
     #print("### plot_results_by_gmt() ###")
     
+    os.environ["GMT_HISTORY"] = os.path.join("data", "gmt.history")
     sitename_map = get_session_param('sitename_map')
 
     #https://fish-evol.org/GMT_ji.html

@@ -1,6 +1,6 @@
 from flask import render_template, jsonify, abort
 from datetime import date
-from eDNAmap_analysis import (
+from utils.analysis import (
     making_fundamental_dataframes,
     plot_map_and_drow_figs,
     make_dic_2Jnameor2Cname,

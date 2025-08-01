@@ -2,7 +2,7 @@ from flask import Flask, session, render_template, request, jsonify, send_from_d
 from flask_session import Session
 from utils.session_utils import save_params_to_session
 from datetime import timedelta
-from eDNAmap_module import (
+from utils.module import (
     run_analysis,
     prepare_result_directory,
     build_result_html,
@@ -46,12 +46,6 @@ Session(app)
 app.secret_key = os.getenv('FLASK_SECRET_KEY', 'fallback_dev_key')
 os.makedirs(RESULT_FOLDER, exist_ok=True)
 
-@app.route('/ednamap')
-@app.route('/ednamap/')
-def redirect_to_eDNAmap():
-    return redirect('/eDNAmap', code=302)
-
-
 @app.route('/eDNAmap/debug')
 def debug():
     list_dfs_cruises = pickle.loads(session['list_dfs_cruises'])
@@ -59,11 +53,15 @@ def debug():
     html_table = df_reads.head().to_html()
     return render_template("debug.html", table=html_table)
 
+@app.route('/ednamap')
+@app.route('/ednamap/')
+def redirect_to_eDNAmap():
+    return redirect('/eDNAmap', code=302)
+
 @app.route('/eDNAmap', methods=['GET'])
 @app.route('/eDNAmap/', methods=['GET'])
 def index():
     return render_template('index.html')
-
 
 @app.route('/eDNAmap/submit', methods=['POST'])
 def submit():
@@ -132,7 +130,12 @@ def submit():
     #print("===========================")
     #print("### Stop point 102 ###")
     ##return jsonify({'debug': 'Stopped for inspection'}), 200
-    
+
+    # 結果保存用ディレクトリの準備
+    count_file = os.path.join(os.path.dirname(__file__), 'data', 'count.dat')
+    dirname_rand, eachDirAddress, dirName_count, dirname_rand = prepare_result_directory(count_file)
+
+    ########################################################
     # セッションに保存
     # 利用する場合は、例えば、input_file_userDB_filename = get_session_param('input_file_userDB')
     save_params_to_session({
@@ -156,14 +159,6 @@ def submit():
     #for key in session.keys():
     #    print(f"{key}: {pickle.loads(session[key])}")
     #return jsonify({'debug': 'Stopped for inspection'}), 200
-
-
-    ########################################################
-    # セッションに保存
-
-    # 結果保存用ディレクトリの準備
-    count_file = os.path.join(os.path.dirname(__file__), 'count.dat')
-    dirname_rand, eachDirAddress, dirName_count, dirname_rand = prepare_result_directory(count_file)
 
 
     # DataFrames を生成してセッションに保存
@@ -196,6 +191,7 @@ def submit():
         }), 500
 
 
+    ########################################################
     # 分析の実行
     try:
         result_html_path = run_analysis(dirname_rand, eachDirAddress)
@@ -216,20 +212,10 @@ def submit():
             'time': elapsed_time
         }), 500
 
-
-
-    # エラーメッセージ
-    #if df_4_R_reads_dropped.shape[1] < 2:
-    #    error_message = (
-    #        "Error: After removing the species using the following parameters, "
-    #        "the number of species to be analyzed became insufficient.<br>"
-    #        f"ASV comparison criteria: {ASV_comparison_criteria} sampling points.<br>"
-    #    )
-    #    return jsonify({'error': error_message}), 400
-
-
+    ########################################################
     # HTML結果の構築と保存
     result_html = build_result_html(dirName_count, dirname_rand, eachDirAddress, list_dfs_cruises, database_address)
+    #print("result_html", result_html)
     result_path = os.path.join(eachDirAddress, "300_results.html")
     try:
         with open(result_path, 'w', encoding='utf-8') as f:
@@ -275,7 +261,7 @@ def serve_result_file(filename):
 
 if __name__ == '__main__':
     #app.run(debug=True, use_reloader=False)
-    app.run(host='0.0.0.0', port=5000, debug=True, use_reloader=False)
+    app.run(host='0.0.0.0', port=5001, debug=True, use_reloader=False)
 
 # Ubuntu24.04
 # http://160.16.70.235:5000/eDNAmap
