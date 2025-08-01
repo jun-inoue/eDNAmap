@@ -28,6 +28,7 @@ The programming code is available from [Releases](https://github.com/jun-inoue/e
 
 Those scripts were confirmed to run on the Linux operating system with an Apache HTTP Server Server.   
 
+<!-- 
 ---
 
 ## Deployment and Maintenance
@@ -42,6 +43,7 @@ Stops uWSGI using the PID file (/tmp/eDNAmap.pid) if it exists.
 Kills any remaining uWSGI processes as a fallback.   
 Restarts uWSGI using the wsgi.ini configuration file.   
 Log output can be checked at /var/log/uwsgi/eDNAmap.log.   
+-->
 
 ---
 ## Citation
