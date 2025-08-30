@@ -1,4 +1,4 @@
-# Ocean eDNA map
+# eDNAmap
 A Web Tool/Database for Metabarcodes in the Northwestern Pacific and Beyond
 
 
@@ -48,7 +48,7 @@ Log output can be checked at /var/log/uwsgi/eDNAmap.log.
 ---
 ## Citation
 Inoue, J. et al.   
-Ocean eDNA Map: A Metabarcoding Web Tool for Comparing Marine Biodiversity, with Special Reference to Teleost Fish. Manuscript submitted for publication.   
+eDNAmap: A Metabarcoding Web Tool for Comparing Marine Biodiversity, with Special Reference to Teleost Fish. Manuscript submitted for publication.   
 
 ---
 ## Contact 
