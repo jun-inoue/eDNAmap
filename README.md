@@ -10,10 +10,11 @@ yurai (CGI)
 [https://yurai.aori.u-tokyo.ac.jp/eDNAmap](https://yurai.aori.u-tokyo.ac.jp/eDNAmap)   
 (Since 24 Mar. 2025)   
 
+<!-- 
 viento (FLASK)   
 [https://orthoscope.jp/eDNAmap](https://orthoscope.jp/eDNAmap)   
 (Since 23 July 2025)   
-
+-->
 ---
 ## Instruction　　　
 [https://fish-evol.org/eDNAmap_instruction/index.html](https://fish-evol.org/eDNAmap_instruction/index.html)   
