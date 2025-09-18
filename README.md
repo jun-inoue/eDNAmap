@@ -9,10 +9,12 @@ A Web Tool/Database for Metabarcodes in the Northwestern Pacific and Beyond
 yurai (CGI)   
 [https://yurai.aori.u-tokyo.ac.jp/eDNAmap](https://yurai.aori.u-tokyo.ac.jp/eDNAmap)   
 (Since 24 Mar. 2025)   
+"Due to a scheduled power outage, the system will be suspended from 3:00 PM on September 27, 2025, until noon on September 30."   
 
 viento (FLASK)   
 [https://orthoscope.jp/eDNAmap](https://orthoscope.jp/eDNAmap)   
-(Since 23 July 2025)   
+(Since 23 July 2025)      
+
 ---
 ## Instruction　　　
 [https://fish-evol.org/eDNAmap_instruction/index.html](https://fish-evol.org/eDNAmap_instruction/index.html)   
