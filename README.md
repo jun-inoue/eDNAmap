@@ -5,7 +5,7 @@ A Web Tool/Database for Metabarcodes in the Northwestern Pacific and Beyond
 ---
 
 ## Analysis site
-"Due to a scheduled power outage, the system will be suspended from 3:00 PM on September 27, 2025, until noon on September 30."   
+"Due to a scheduled power outage, the system will be suspended from 3:00 PM on September 27, 2025, until noon on September 29."   
 
 <!-- CGI: Fast   -->
 yurai (CGI)   
