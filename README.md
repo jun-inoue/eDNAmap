@@ -13,9 +13,7 @@ yurai (CGI: fast)
 (Since 24 Mar. 2025)   
 
 os3 (CGI: slow)   
-[https://oedna.opensci.aori.u-tokyo.ac.jp/eDNAmap/](https://oedna.opensci.aori.u-tokyo.ac.jp/eDNAmap/)   
-or   
-[https://opensci.aori.u-tokyo.ac.jp/eDNAmap/](https://opensci.aori.u-tokyo.ac.jp/eDNAmap/)   
+[https://oedna.opensci.aori.u-tokyo.ac.jp/eDNAmap/](https://oedna.opensci.aori.u-tokyo.ac.jp/eDNAmap/) or [https://opensci.aori.u-tokyo.ac.jp/eDNAmap/](https://opensci.aori.u-tokyo.ac.jp/eDNAmap/)   
 (Since 2 Dec. 2025)   
 
 viento (FLASK: medium)   
