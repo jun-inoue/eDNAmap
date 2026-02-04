@@ -8,13 +8,18 @@ A Web Tool/Database for Metabarcodes in the Northwestern Pacific and Beyond
 "Due to a scheduled power outage, the system will be suspended from 3:00 PM on September 27, 2025, until noon on September 29."   
 
 <!-- CGI: Fast   -->
-yurai (CGI)   
+yurai (CGI: fast)   
 [https://yurai.aori.u-tokyo.ac.jp/eDNAmap](https://yurai.aori.u-tokyo.ac.jp/eDNAmap)   
 (Since 24 Mar. 2025)   
 
-viento (FLASK)   
+os3 (CGI: slow)   
+[https://oedna.opensci.aori.u-tokyo.ac.jp/eDNAmap/](https://oedna.opensci.aori.u-tokyo.ac.jp/eDNAmap/)
+(Since 2 Dec. 2025)   
+
+viento (FLASK: medium)   
 [https://orthoscope.jp/eDNAmap](https://orthoscope.jp/eDNAmap)   
 (Since 23 July 2025)      
+
 
 ---
 ## Instruction　　　
