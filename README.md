@@ -14,7 +14,7 @@ yurai (CGI: fast)
 (Since 24 Mar. 2025)   
 
 os3 (CGI: slow)   
-[https://133.167.89.139/eDNAmap/index.1.0.1.html](https://133.167.89.139/eDNAmap/index.1.0.1.html)
+[https://133.167.89.139/eDNAmap/index.1.0.1.html](https://133.167.89.139/eDNAmap/index.1.0.1.html)   
 (Since 2 Dec. 2025)   
 
 viento (FLASK: medium)   
