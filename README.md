@@ -7,7 +7,6 @@ A Web Tool/Database for Metabarcodes in the Northwestern Pacific and Beyond
 ## Analysis site
 
 <!-- 
-<!-- CGI: Fast   -->
 yurai (CGI: fast)   
 [https://yurai.aori.u-tokyo.ac.jp/eDNAmap](https://yurai.aori.u-tokyo.ac.jp/eDNAmap)   
 (Since 24 Mar. 2025)   
