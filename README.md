@@ -17,9 +17,10 @@ os3 (CGI: slow)
 [https://133.167.89.139/eDNAmap/index.1.0.1.html](https://133.167.89.139/eDNAmap/index.1.0.1.html)   
 (Since 2 Dec. 2025)   
 
-viento (FLASK: medium)   
+<!-- viento (FLASK: medium)   
 [https://orthoscope.jp/eDNAmap](https://orthoscope.jp/eDNAmap)   
 (Since 23 July 2025)      
+-->
 
 ---
 ## Instruction　　　
