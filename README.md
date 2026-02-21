@@ -9,8 +9,6 @@ A Web Tool/Database for Metabarcodes in the Northwestern Pacific and Beyond
 <!-- CGI: Fast   -->
 yurai (CGI: fast)   
 [https://yurai.aori.u-tokyo.ac.jp/eDNAmap](https://yurai.aori.u-tokyo.ac.jp/eDNAmap)   
-(
-[https://oedna.opensci.aori.u-tokyo.ac.jp/eDNAmap/](https://oedna.opensci.aori.u-tokyo.ac.jp/eDNAmap/) or [https://opensci.aori.u-tokyo.ac.jp/eDNAmap/](https://opensci.aori.u-tokyo.ac.jp/eDNAmap/))   
 (Since 24 Mar. 2025)   
 
 os3 (CGI: slow)   
@@ -19,6 +17,8 @@ os3 (CGI: slow)
 
 viento (FLASK: medium)   
 [https://orthoscope.jp/eDNAmap](https://orthoscope.jp/eDNAmap)   
+(
+[https://oedna.opensci.aori.u-tokyo.ac.jp/eDNAmap/](https://oedna.opensci.aori.u-tokyo.ac.jp/eDNAmap/) or [https://opensci.aori.u-tokyo.ac.jp/eDNAmap/](https://opensci.aori.u-tokyo.ac.jp/eDNAmap/))   
 (Since 23 July 2025)      
 
 ---
