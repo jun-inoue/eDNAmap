@@ -17,6 +17,7 @@ os3 (CGI: slow)
 -->
 
 viento (FLASK: medium)   
+The server will be offline Sept 25, 15:00 JST – Sept 28, 12:00 JST due to scheduled campus power maintenance.   
 [https://orthoscope.jp/eDNAmap](https://orthoscope.jp/eDNAmap)   
 (
 [https://oedna.opensci.aori.u-tokyo.ac.jp/eDNAmap/](https://oedna.opensci.aori.u-tokyo.ac.jp/eDNAmap/) or [https://opensci.aori.u-tokyo.ac.jp/eDNAmap/](https://opensci.aori.u-tokyo.ac.jp/eDNAmap/))   
