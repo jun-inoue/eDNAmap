@@ -55,8 +55,8 @@ Log output can be checked at /var/log/uwsgi/eDNAmap.log.
 
 ---
 ## Citation
-Inoue, J. et al.   
-eDNAmap: A Metabarcoding Web Tool for Comparing Marine Biodiversity, with Special Reference to Teleost Fish. Manuscript submitted for publication.   
+Inoue J, et al. 2026. eDNAmap: A Metabarcoding Web Tool for Comparing Marine Biodiversity, With Special Reference to Teleost Fish. Molecular Ecology Resources 26: e70066. doi: https://doi.org/10.1111/1755-0998.70066
+
 
 ---
 ## Contact 
