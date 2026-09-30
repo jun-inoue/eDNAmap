@@ -1,5 +1,5 @@
 # eDNAmap
-A Web Tool/Database for Metabarcodes in the Northwestern Pacific and Beyond
+A Web Tool for Metabarcodes in the Northwestern Pacific and Beyond
 
 
 ---
