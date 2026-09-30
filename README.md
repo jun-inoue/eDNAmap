@@ -1,14 +1,8 @@
 # eDNAmap
-A Web Tool for Metabarcodes in the Northwestern Pacific and Beyond
-
-# eDNAmap
-A Web Tool for Metabarcodes in the Northwestern Pacific and Beyond
+A Web Tool and Databases for eDNA Metabarcoding in the Northwestern Pacific and Beyond
 
 > **🆕 New feature: Fish Habitat Lookup lets you check freshwater, brackish-water, and saltwater habitats for a list of fish species using FishBase data.**
 
----
-
-## Analysis site
 ---
 
 ## Analysis site
