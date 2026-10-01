@@ -7,14 +7,13 @@ A Web Tool and Databases for eDNA Metabarcoding in the Northwestern Pacific and 
 
 ## Analysis site
 
-viento (FLASK: medium)   
-[https://orthoscope.jp/eDNAmap](https://orthoscope.jp/eDNAmap)   
-(
-[https://oedna.opensci.aori.u-tokyo.ac.jp/eDNAmap/](https://oedna.opensci.aori.u-tokyo.ac.jp/eDNAmap/) or [https://opensci.aori.u-tokyo.ac.jp/eDNAmap/](https://opensci.aori.u-tokyo.ac.jp/eDNAmap/))   
-(Since 23 July 2025)      
+viento (Flask)<br>
+[https://orthoscope.jp/eDNAmap](https://orthoscope.jp/eDNAmap)<br>
+(Since 23 July 2025)
 
-os3 (CGI: slow)
-[https://opensci.aori.u-tokyo.ac.jp/oeDNAmap/?check=spinner-20261001](https://opensci.aori.u-tokyo.ac.jp/oeDNAmap/?check=spinner-20261001)
+os3 (Flask)<br>
+[https://opensci.aori.u-tokyo.ac.jp/oeDNAmap/](https://opensci.aori.u-tokyo.ac.jp/oeDNAmap/)<br>
+(Since 1 October 2026)
 
 
 ---
