@@ -12,7 +12,7 @@ viento (Flask, medium speed)<br>
 (Since 23 July 2025)
 
 os3 (Flask, slow speed)<br>
-[https://opensci.aori.u-tokyo.ac.jp/oeDNAmap/](https://opensci.aori.u-tokyo.ac.jp/oeDNAmap/)<br>
+[https://opensci.aori.u-tokyo.ac.jp/oeDNAmap/](https://opensci.aori.u-tokyo.ac.jp/oeDNAmap/?v=os3-flask-20261001)<br>
 (Since 1 October 2026)
 
 ---
