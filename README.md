@@ -23,6 +23,10 @@ viento (FLASK: medium)
 [https://oedna.opensci.aori.u-tokyo.ac.jp/eDNAmap/](https://oedna.opensci.aori.u-tokyo.ac.jp/eDNAmap/) or [https://opensci.aori.u-tokyo.ac.jp/eDNAmap/](https://opensci.aori.u-tokyo.ac.jp/eDNAmap/))   
 (Since 23 July 2025)      
 
+os3 (CGI: slow)
+[https://opensci.aori.u-tokyo.ac.jp/oeDNAmap/?check=spinner-20261001](https://opensci.aori.u-tokyo.ac.jp/oeDNAmap/?check=spinner-20261001)
+
+
 ---
 ## Instruction　　　
 [https://fish-evol.org/eDNAmap_instruction/index.html](https://fish-evol.org/eDNAmap_instruction/index.html)   
