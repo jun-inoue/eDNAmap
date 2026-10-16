@@ -1,7 +1,7 @@
 # eDNAmap
 A Web Tool and Databases for eDNA Metabarcoding in the Northwestern Pacific and Beyond
 
-> **🆕 New feature: Fish Habitat Lookup lets you check freshwater, brackish-water, and saltwater habitats for a list of fish species using FishBase data.**
+> **🆕 New in v1.0.4: Species detection around Japan lets you instantly view precomputed detection maps for 721 teleost species from 19 projects by selecting a species from the dropdown. Japanese common names are also displayed where available.**
 
 ---
 
